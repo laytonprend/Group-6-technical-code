@@ -109,7 +109,7 @@ def select_all_tasks(conn):
     #plt.figure(figsize = (9, 6))
     plt.rcParams["figure.figsize"] = (10,8)
     plt.bar(x = result["year"],
-    height = result.groupby(result.year)['nlp'].transform('mean'), #why isn't mean working
+    height = result.groupby(result.year)['nlp'].transform('mean'),
     color = "midnightblue")
     plt.xticks(rotation = 45, fontsize = 13)
     plt.yticks(fontsize = 13)
