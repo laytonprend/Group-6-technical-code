@@ -82,13 +82,37 @@ def join2_result_policy_texts(conn,result):
     return(result)
     
     
-def mycode(conn):
+
+    
+    
+
+
+def DatabaseInterrogation():
+    database = r"C:\Users\layto\sqlite\db"#.xz?
+
+    # create a database connection
+    conn = create_connection(database)
+    with conn:
+     #   print("1. Query task by priority:")
+      #  select_task_by_priority(conn, 1)
+
+        print("2. Query all tasks")
+        result=join1_sites__policy_snapshots(conn)
+        return(result)
+
+
+if __name__ == '__main__':
+    result=DatabaseInterrogation()    
+        
+    
+
+def MainCode(result):
     """
     Query all rows in the tasks table
     :param conn: the Connection object
     :return:
     """
-    result=join1_sites__policy_snapshots(conn)
+    
     #result['child']= re.findall('child[^, ]+',result['policy_text'])
     columns=result.columns
     fieldnames=[]
@@ -121,7 +145,7 @@ def makebarchart(x,y,xlabel,ylabel,SQLcategoryfilter):
     color = "midnightblue")
     plt.xticks(rotation = 45, fontsize = 13)
     plt.yticks(fontsize = 13)
-    titlelabel=str(ylabel)+' by '+str(xlabel)+' '+str(SQLcategoryfilter)
+    titlelabel=str(ylabel)+' in privacy policies by '+str(xlabel)+' '+str(SQLcategoryfilter)
     plt.title(titlelabel, fontsize = 16, fontweight = "bold")
     plt.xlabel(xlabel, fontsize = 13 )
     plt.ylabel(ylabel, fontsize = 13 )
@@ -129,25 +153,7 @@ def makebarchart(x,y,xlabel,ylabel,SQLcategoryfilter):
     plt.savefig(savelabel)
     plt.show()
     print(titlelabel+' Graph created')
-    
-    
-    
-
-
-def main():
-    database = r"C:\Users\layto\sqlite\db"#.xz?
-
-    # create a database connection
-    conn = create_connection(database)
-    with conn:
-     #   print("1. Query task by priority:")
-      #  select_task_by_priority(conn, 1)
-
-        print("2. Query all tasks")
-        mycode(conn)
-
 
 if __name__ == '__main__':
-    main()    
-        
+    MainCode(result)
 #create_connection("C:\Users\layto\sqlite")
