@@ -82,7 +82,7 @@ def join2_result_policy_texts(conn,result):
     return(result)
     
     
-def select_all_tasks(conn):
+def mycode(conn):
     """
     Query all rows in the tasks table
     :param conn: the Connection object
@@ -105,21 +105,30 @@ def select_all_tasks(conn):
     #nlp.groupby(nlp['year'].dt.year)['policy_text'].agg(['mean'])
     print('nlp',result['nlp'])
     #fieldnames.remove('year')
+    SQLcategoryFilter='when categories contain tech or media'
+    makebarchart(result["year"],result.groupby(result.year)['nlp'].transform('mean'),'Year','Average count of child synonyms',SQLcategoryFilter)
+    del result['nlp']
     
-    #plt.figure(figsize = (9, 6))
+    
+    
+    print('All Graphs constructed')
+    
+    ##now make a loop to make all possible graphs against year
+def makebarchart(x,y,xlabel,ylabel,SQLcategoryfilter):
     plt.rcParams["figure.figsize"] = (10,8)
-    plt.bar(x = result["year"],
-    height = result.groupby(result.year)['nlp'].transform('mean'),
+    plt.bar(x = x,
+    height = y,
     color = "midnightblue")
     plt.xticks(rotation = 45, fontsize = 13)
     plt.yticks(fontsize = 13)
-    plt.title("year", fontsize = 16, fontweight = "bold")
-    plt.ylabel("Average count of child synonyms in all privacy policies", fontsize = 13 )
-    plt.savefig("All categories average child synonym.png")
+    titlelabel=str(ylabel)+' by '+str(xlabel)+' '+str(SQLcategoryfilter)
+    plt.title(titlelabel, fontsize = 16, fontweight = "bold")
+    plt.xlabel(xlabel, fontsize = 13 )
+    plt.ylabel(ylabel, fontsize = 13 )
+    savelabel=str(titlelabel)+str('png')
+    plt.savefig(savelabel)
     plt.show()
-    
-    ##now make a loop to make all possible graphs against year
-    
+    print(titlelabel+' Graph created')
     
     
     
@@ -135,7 +144,7 @@ def main():
       #  select_task_by_priority(conn, 1)
 
         print("2. Query all tasks")
-        select_all_tasks(conn)
+        mycode(conn)
 
 
 if __name__ == '__main__':
