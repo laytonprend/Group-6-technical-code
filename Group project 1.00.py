@@ -45,17 +45,25 @@ def create_connection(db_file):
     return conn
 
 def join1_sites__policy_snapshots(conn):
-    sites = pd.read_sql_query("SELECT id, categories from sites WHERE categories LIKE '%tech%' or categories LIKE '%media%'", conn)#maybe requery and do .unique and rederfine categories
-   #print('sites\n',sites)
+    sites = pd.read_sql_query("SELECT id, categories from sites WHERE (categories LIKE '%social%' OR categories LIKE '%tech%' OR categories LIKE '%media%') AND  ( (categories LIKE '%sharing%')  OR  categories LIKE '%messageboard%' OR categories LIKE '%blogsandpersonal%') AND NOT categories LIKE '%news%'",conn)
+    #sites = pd.read_sql_query("SELECT id, categories from sites WHERE (categories LIKE '%tech%' OR categories LIKE '%media%') AND ( (categories LIKE '%sharing%' AND  categories LIKE '%media%')) OR  (categories LIKE '%education%' AND  categories LIKE '%tech%')-- OR  categories LIKE '%messageboard%' OR categories LIKE '%blogsandpersonal%')", conn)#maybe requery and do .unique and rederfine categories
+   #category selector
+#   and ( (categories LIKE '%sharing%' and  categories LIKE '%media%')) or  (categories LIKE '%education%' and   categories LIKE '%tech%')
+ #  or  categories LIKE '%messageboard%') or  categories LIKE '%blogsandpersonal%')))
+  # //those that have sharing and media or education and tech? or messageboardsand forums or 'blogsandpersonal;business;newsandmedia' 
+
+
+   
+    #print('sites\n',sites)
     
     #sites[['id','categories']].groupby(['categories']).agg(['count']).sort(['count'])
     #df.set_index(['count'])
     #print(df.index)
-    #print('categories\n',df['categories'].unique())#all categories that contaiin tech or media?
+    print('categories\n',sites['categories'].unique())#all categories that contaiin tech or media?
     print('sites table imported')
     print( sites.head())
     
-    policy_snapshots = pd.read_sql_query("SELECT id, year, phase, policy_text_id,  classifier_probability from policy_snapshots", conn)
+    policy_snapshots = pd.read_sql_query("SELECT id, year, phase, policy_text_id, site_id,  classifier_probability from policy_snapshots", conn)
     #del result['policy_html_id']
     #del result['policy_reader_view_html_id']
     #del result['site_id']
@@ -69,11 +77,19 @@ def join1_sites__policy_snapshots(conn):
     return(join2_result_policy_texts(conn,result))
 def join2_result_policy_texts(conn,result):
     #flesch_kincaid, smog,
-    policy_texts = pd.read_sql_query("SELECT id, policy_text, flesch_ease, flesch_kincaid , smog,  length from policy_texts", conn)
+    policy_texts = pd.read_sql_query("SELECT id, policy_text,   length from policy_texts", conn)
     print(policy_texts.columns)
     print('policy_texts table imported\n',policy_texts.head())
     
     result = pd.merge(policy_texts, result, on=None, left_on="id", right_on="policy_text_id",  how="inner")# on=["id","policy_text_id"])
+    del result['id']
+    #memory error workaround
+    policy_texts = pd.read_sql_query("SELECT id, flesch_ease, flesch_kincaid , smog from policy_texts", conn)
+    print(policy_texts.columns)
+    print('policy_texts table imported\n',policy_texts.head())
+    
+    result = pd.merge(policy_texts, result, on=None, left_on="id", right_on="policy_text_id",  how="inner")# on=["id","policy_text_id"])
+   
     print('merge 2 all columns\n',result.columns)
     #print('unique flesch_ease scores',result['flesch_ease'].unique())
     #print(result.columns)
@@ -83,6 +99,15 @@ def join2_result_policy_texts(conn,result):
     print(result.head())
     #del result['']
     #del result['']
+    #return(result)
+    return(join3_result_alexa_ranks(conn,result))
+def join3_result_alexa_ranks(conn,result):
+    alexa_ranks = pd.read_sql_query("SELECT site_id, rank from alexa_ranks", conn)
+    print(alexa_ranks.rank)
+    print('alexa_ranks table imported\n', alexa_ranks.head())
+    
+    result = pd.merge(alexa_ranks, result, on=None, left_on="site_id", right_on="site_id",  how="inner")
+    
     return(result)
     
     
@@ -126,7 +151,7 @@ def MainCode(result):
          fieldnames.append(str(x))
      print('fieldnames',fieldnames)
 
-     result['nlp']=result['policy_text'].str.count("child|Child|Minor|minor|underage|child|kid|young|youth")##here is where to adjust what words ar being checked, not earlier on so other graphs
+     result['nlp']=result['policy_text'].str.count("child|Child|Child's|child's|Minor|minor|underage|child|kid|young|youth|young people|under-18|under-13|under 13|under 18|under 12|13 years old|under 13 years old|under 18 years old|age of 13|under the age of 18")##here is where to adjust what words ar being checked, not earlier on so other graphs
  #can be made
 
      #result['year'] = pd.to_datetime(result.year)
@@ -135,21 +160,22 @@ def MainCode(result):
      #nlp.groupby(nlp['year'].dt.year)['policy_text'].agg(['mean'])
      print('nlp',result['nlp'])
      #fieldnames.remove('year')
-     SQLcategoryFilter='when categories contain tech or media'
+     SQLcategoryFilter="when categories contain 'social' OR 'tech' OR'media' AND ('sharing' OR 'messageboard' OR 'blogsandpersonal and not news'"
 
     
      #working hashed for efficiency
-     #makebarchart(result["year"],result.groupby(result.year)['nlp'].transform('mean'),'Year','Mean count of child synonyms',SQLcategoryFilter)
+     makebarchart(result["year"],result.groupby(result.year)['categories'].transform('count'),'Year','relevant samples that year',SQLcategoryFilter)
+     makebarchart(result["year"],result.groupby(result.year)['nlp'].transform('mean'),'Year','Mean count of child synonyms',SQLcategoryFilter)
      del result['nlp']
-     #makebarchart(result['year'],result.groupby(result.year)['length'].transform('mean'),'Year','Mean length',SQLcategoryFilter)
+     makebarchart(result['year'],result.groupby(result.year)['length'].transform('mean'),'Year','Mean length',SQLcategoryFilter)
 
      #result['contain_easy'] = result['flesch_ease'].str.count.contains('easy')*100
      #result['contain_easy'] = result['flesch_ease'].str.count.contains('easy')*100
      #result['contain_difficult|confusing']=result.flesch_ease.str.count("difficult|confusing")-result.flesch_ease.str.count("_difficult")#removes fairly difficult
      #unique flesch_ease scores ['difficult' 'very_confusing' None 'fairly_difficult' 'standard' 'easy' 'fairly_easy']
      
-     #flesch_scores(result, SQLcategoryFilter)
-     #print('All flesch_scores Graphs constructed')
+     flesch_scores(result, SQLcategoryFilter)
+     print('All flesch_scores Graphs constructed')
 
      makebarchart(result['year'],result.groupby(result.year)['flesch_kincaid'].transform('mean'),'Year',
                 'Mean flesch_kincaid',SQLcategoryFilter)#lower is harder, so getting slightly easier since 2000
