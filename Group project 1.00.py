@@ -45,7 +45,9 @@ def create_connection(db_file):
     return conn
 
 def join1_sites__policy_snapshots(conn):
-    sites = pd.read_sql_query("SELECT id, categories from sites WHERE (categories LIKE '%social%' OR categories LIKE '%tech%' OR categories LIKE '%media%') AND  ( (categories LIKE '%sharing%')  OR  categories LIKE '%messageboard%' OR categories LIKE '%blogsandpersonal%') AND NOT categories LIKE '%news%'",conn)
+    #sites = pd.read_sql_query("SELECT id, categories from sites WHERE (categories LIKE '%social%' OR categories LIKE '%tech%' OR categories LIKE '%media%') AND  ( (categories LIKE '%sharing%')  OR  categories LIKE '%messageboard%' OR categories LIKE '%blogsandpersonal%') AND NOT categories LIKE '%news%'",conn)
+    sites = pd.read_sql_query("SELECT id, categories from sites WHERE categories LIKE '%game%'",conn)
+  
     #sites = pd.read_sql_query("SELECT id, categories from sites WHERE (categories LIKE '%tech%' OR categories LIKE '%media%') AND ( (categories LIKE '%sharing%' AND  categories LIKE '%media%')) OR  (categories LIKE '%education%' AND  categories LIKE '%tech%')-- OR  categories LIKE '%messageboard%' OR categories LIKE '%blogsandpersonal%')", conn)#maybe requery and do .unique and rederfine categories
    #category selector
 #   and ( (categories LIKE '%sharing%' and  categories LIKE '%media%')) or  (categories LIKE '%education%' and   categories LIKE '%tech%')
@@ -160,7 +162,7 @@ def MainCode(result):
      #nlp.groupby(nlp['year'].dt.year)['policy_text'].agg(['mean'])
      print('nlp',result['nlp'])
      #fieldnames.remove('year')
-     SQLcategoryFilter="when categories contain 'social' OR 'tech' OR'media' AND ('sharing' OR 'messageboard' OR 'blogsandpersonal and not news'"
+     SQLcategoryFilter="when categories are related to gaming"
 
     
      #working hashed for efficiency
