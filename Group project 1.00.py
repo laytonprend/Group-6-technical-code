@@ -47,7 +47,7 @@ def create_connection(db_file):
 def join1_sites__policy_snapshots(conn):
     #sites = pd.read_sql_query("SELECT id, categories from sites WHERE (categories LIKE '%social%' OR categories LIKE '%tech%' OR categories LIKE '%media%') AND  ( (categories LIKE '%sharing%')  OR  categories LIKE '%messageboard%' OR categories LIKE '%blogsandpersonal%') AND NOT categories LIKE '%news%'",conn)
     sites = pd.read_sql_query("SELECT id, categories from sites WHERE categories LIKE '%game%'",conn)
-  
+    SQLcategoryFilter="when categories are related to gaming"
     #sites = pd.read_sql_query("SELECT id, categories from sites WHERE (categories LIKE '%tech%' OR categories LIKE '%media%') AND ( (categories LIKE '%sharing%' AND  categories LIKE '%media%')) OR  (categories LIKE '%education%' AND  categories LIKE '%tech%')-- OR  categories LIKE '%messageboard%' OR categories LIKE '%blogsandpersonal%')", conn)#maybe requery and do .unique and rederfine categories
    #category selector
 #   and ( (categories LIKE '%sharing%' and  categories LIKE '%media%')) or  (categories LIKE '%education%' and   categories LIKE '%tech%')
@@ -76,7 +76,8 @@ def join1_sites__policy_snapshots(conn):
     del result['id']
     #del result['id_x']
     print('merge1 result\n',result.columns)
-    return(join2_result_policy_texts(conn,result))
+    return join2_result_policy_texts(conn,result), SQLcategoryFilter
+
 def join2_result_policy_texts(conn,result):
     #flesch_kincaid, smog,
     policy_texts = pd.read_sql_query("SELECT id, policy_text,   length from policy_texts", conn)
@@ -128,17 +129,17 @@ def DatabaseInterrogation():
       #  select_task_by_priority(conn, 1)
 
         print("2. Query all tasks")
-        result=join1_sites__policy_snapshots(conn)
-        return(result)
+        result, SQLcategoryFilter=join1_sites__policy_snapshots(conn)
+        return result, SQLcategoryFilter 
 
 
 if __name__ == '__main__':
-    result=DatabaseInterrogation()   
+    result, SQLcategoryFilter=DatabaseInterrogation()   
     print('Database processing complete')
         
     
 
-def MainCode(result):
+def MainCode(result,SQLcategoryFilter):
      """
      Query all rows in the tasks table
      :param conn: the Connection object
@@ -162,7 +163,7 @@ def MainCode(result):
      #nlp.groupby(nlp['year'].dt.year)['policy_text'].agg(['mean'])
      print('nlp',result['nlp'])
      #fieldnames.remove('year')
-     SQLcategoryFilter="when categories are related to gaming"
+     #SQLcategoryFilter="when categories are related to gaming"
 
     
      #working hashed for efficiency
@@ -214,12 +215,12 @@ def flesch_scores(result, SQLcategoryFilter):
      print(result['contain_easy'].head())
      makebarchart(result['year'],result.groupby(result.year)['contain_easy'].transform('mean')*100,'Year',
                   'Mean percentage of privacy policies that are easy or fairly_easy in difficulty to read (The fifth and sixth (lowest 2) most difficult measurement on scale)',SQLcategoryFilter)
-    
+     ''' 
      result['contain_confusing|difficult|fairly_difficult']=result.flesch_ease.str.count("confusing")+result.flesch_ease.str.count("difficult")
      print(result['contain_confusing|difficult|fairly_difficult'].head())
      makebarchart(result['year'],result.groupby(result.year)['contain_confusing|difficult|fairly_difficult'].transform('mean')*100,'Year',
                   'Mean percentage of privacy policies that contain confusing|difficult|fairly_difficult in difficulty to read (The fourth most difficult measurement on scale)',SQLcategoryFilter)
-
+'''
      del result['contain_confusing|difficult|fairly_difficult']
      del result['contain_fairly_difficult']
      del result['contain_standard']
@@ -236,9 +237,9 @@ def makebarchart(x,y,xlabel,ylabel,SQLcategoryfilter):
    plt.rcParams["figure.figsize"] = (10,8)
    plt.bar(x = x,
    height = y,
-   color = "midnightblue")
+   color = "blue")
 
-   titlelabel=str(ylabel)+' in privacy policies by '+str(xlabel)+' '+str(SQLcategoryfilter)#area in brackets in main title but not axis
+   titlelabel=str(SQLcategoryfilter)+' '+str(ylabel)+' in privacy policies by '+str(xlabel)#area in brackets in main title but not axis
    ref=0
    for i in range(0,len(ylabel)-1):
         if ylabel[i]=='(' and ref==0:
@@ -252,7 +253,7 @@ def makebarchart(x,y,xlabel,ylabel,SQLcategoryfilter):
    plt.title(titlelabel, fontsize = 16, fontweight = "bold")
    plt.xlabel(xlabel, fontsize = 13 )
    plt.ylabel(ylabel, fontsize = 13 )
-   savelabel=str(ylabel)+' in privacy policies by '+str(xlabel)+' '+str(SQLcategoryfilter)
+   savelabel=str(SQLcategoryfilter)+' '+str(ylabel)+' in privacy policies by '+str(xlabel)#+' '+str(SQLcategoryfilter)
    savelabel=savelabel[:47]+str('.png')
   # savelabel=str(titlelabel)+str('.png')
    plt.savefig(savelabel)
@@ -260,7 +261,7 @@ def makebarchart(x,y,xlabel,ylabel,SQLcategoryfilter):
    print(titlelabel+' Graph created')
 
 if __name__ == '__main__':
-    MainCode(result)
+    MainCode(result,SQLcategoryFilter)
     #create_connection(\"C:\\Users\\layto\\sqlite\")#
     
     
