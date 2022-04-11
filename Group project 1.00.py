@@ -47,7 +47,7 @@ def create_connection(db_file):
 def join1_sites__policy_snapshots(conn):
     #sites = pd.read_sql_query("SELECT id, categories from sites WHERE (categories LIKE '%social%' OR categories LIKE '%tech%' OR categories LIKE '%media%') AND  ( (categories LIKE '%sharing%')  OR  categories LIKE '%messageboard%' OR categories LIKE '%blogsandpersonal%') AND NOT categories LIKE '%news%'",conn)
     sites = pd.read_sql_query("SELECT id, categories from sites WHERE categories LIKE '%game%'",conn)
-    SQLcategoryFilter="when categories are related to gaming"
+    SQLcategoryFilter="gaming"
     #sites = pd.read_sql_query("SELECT id, categories from sites WHERE (categories LIKE '%tech%' OR categories LIKE '%media%') AND ( (categories LIKE '%sharing%' AND  categories LIKE '%media%')) OR  (categories LIKE '%education%' AND  categories LIKE '%tech%')-- OR  categories LIKE '%messageboard%' OR categories LIKE '%blogsandpersonal%')", conn)#maybe requery and do .unique and rederfine categories
    #category selector
 #   and ( (categories LIKE '%sharing%' and  categories LIKE '%media%')) or  (categories LIKE '%education%' and   categories LIKE '%tech%')
@@ -154,7 +154,7 @@ def MainCode(result,SQLcategoryFilter):
          fieldnames.append(str(x))
      print('fieldnames',fieldnames)
 
-     result['nlp']=result['policy_text'].str.count("child|Child|Child's|child's|Minor|minor|underage|child|kid|young|youth|young people|under-18|under-13|under 13|under 18|under 12|13 years old|under 13 years old|under 18 years old|age of 13|under the age of 18")##here is where to adjust what words ar being checked, not earlier on so other graphs
+     result['nlp']=result['policy_text'].str.count("Parental|parental|guardian|Guardian|child|Child|Child's|child's|Minor|minor|underage|child|kid|young|youth|young people|under-18|under-13|under 13|under 18|under 12|13 years old|under 13 years old|under 18 years old|age of 13|under the age of 18")##here is where to adjust what words ar being checked, not earlier on so other graphs
  #can be made
 
      #result['year'] = pd.to_datetime(result.year)
@@ -177,15 +177,15 @@ def MainCode(result,SQLcategoryFilter):
      #result['contain_difficult|confusing']=result.flesch_ease.str.count("difficult|confusing")-result.flesch_ease.str.count("_difficult")#removes fairly difficult
      #unique flesch_ease scores ['difficult' 'very_confusing' None 'fairly_difficult' 'standard' 'easy' 'fairly_easy']
      
-     flesch_scores(result, SQLcategoryFilter)
-     print('All flesch_scores Graphs constructed')
+     
 
      makebarchart(result['year'],result.groupby(result.year)['flesch_kincaid'].transform('mean'),'Year',
                 'Mean flesch_kincaid',SQLcategoryFilter)#lower is harder, so getting slightly easier since 2000
      makebarchart(result['year'],result.groupby(result.year)['smog'].transform('mean'),'Year',
                 'Mean smog',SQLcategoryFilter)#years of education needed to read
           
-     
+     flesch_scores(result, SQLcategoryFilter)
+     print('All flesch_scores Graphs constructed')
      ##now make a loop to make all possible graphs against year
 def flesch_scores(result, SQLcategoryFilter):
      result['contain_very_confusing']=result.flesch_ease.str.count("ery_confusing")
@@ -215,13 +215,13 @@ def flesch_scores(result, SQLcategoryFilter):
      print(result['contain_easy'].head())
      makebarchart(result['year'],result.groupby(result.year)['contain_easy'].transform('mean')*100,'Year',
                   'Mean percentage of privacy policies that are easy or fairly_easy in difficulty to read (The fifth and sixth (lowest 2) most difficult measurement on scale)',SQLcategoryFilter)
-     ''' 
-     result['contain_confusing|difficult|fairly_difficult']=result.flesch_ease.str.count("confusing")+result.flesch_ease.str.count("difficult")
-     print(result['contain_confusing|difficult|fairly_difficult'].head())
-     makebarchart(result['year'],result.groupby(result.year)['contain_confusing|difficult|fairly_difficult'].transform('mean')*100,'Year',
-                  'Mean percentage of privacy policies that contain confusing|difficult|fairly_difficult in difficulty to read (The fourth most difficult measurement on scale)',SQLcategoryFilter)
-'''
-     del result['contain_confusing|difficult|fairly_difficult']
+#     ''' 
+#     result['contain_confusing|difficult|fairly_difficult']=result.flesch_ease.str.count("confusing")+result.flesch_ease.str.count("difficult")
+#     print(result['contain_confusing|difficult|fairly_difficult'].head())
+#     makebarchart(result['year'],result.groupby(result.year)['contain_confusing|difficult|fairly_difficult'].transform('mean')*100,'Year',
+##                  'Mean percentage of privacy policies that contain confusing|difficult|fairly_difficult in difficulty to read (The fourth most difficult measurement on scale)',SQLcategoryFilter)
+#'''
+     #del result['contain_confusing|difficult|fairly_difficult']
      del result['contain_fairly_difficult']
      del result['contain_standard']
      del result['contain_easy']
@@ -234,6 +234,9 @@ def flesch_scores(result, SQLcategoryFilter):
  
                                                          
 def makebarchart(x,y,xlabel,ylabel,SQLcategoryfilter):
+    
+   savelabelSQLcategoryfilter=SQLcategoryfilter
+   SQLcategoryfilter='when categories are related to '+SQLcategoryfilter 
    plt.rcParams["figure.figsize"] = (10,8)
    plt.bar(x = x,
    height = y,
@@ -253,7 +256,7 @@ def makebarchart(x,y,xlabel,ylabel,SQLcategoryfilter):
    plt.title(titlelabel, fontsize = 16, fontweight = "bold")
    plt.xlabel(xlabel, fontsize = 13 )
    plt.ylabel(ylabel, fontsize = 13 )
-   savelabel=str(SQLcategoryfilter)+' '+str(ylabel)+' in privacy policies by '+str(xlabel)#+' '+str(SQLcategoryfilter)
+   savelabel=str(savelabelSQLcategoryfilter)+' '+str(ylabel)+' in privacy policies by '+str(xlabel)#+' '+str(SQLcategoryfilter)
    savelabel=savelabel[:47]+str('.png')
   # savelabel=str(titlelabel)+str('.png')
    plt.savefig(savelabel)
