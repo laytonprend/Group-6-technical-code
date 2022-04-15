@@ -14,6 +14,7 @@ Created on Tue Mar 15 20:21:57 2022
 import sqlite3
 from sqlite3 import Error
 import pandas as pd
+import numpy as np
 
 
 import matplotlib.pyplot as plt
@@ -55,9 +56,9 @@ def create_connection(db_file):
 
     return conn
 
-def join1_sites__policy_snapshots(conn):
+def join1_sites__policy_snapshots(conn,SQLcategoryFilter,level):
     #sites = pd.read_sql_query("SELECT id, categories from sites WHERE (categories LIKE '%social%' OR categories LIKE '%tech%' OR categories LIKE '%media%') AND  ( (categories LIKE '%sharing%')  OR  categories LIKE '%messageboard%' OR categories LIKE '%blogsandpersonal%') AND NOT categories LIKE '%news%'",conn)
-    SQLcategoryFilter="adult"
+    #SQLcategoryFilter="adult"
     sites = pd.read_sql_query("SELECT id, categories from sites WHERE categories LIKE '%"+SQLcategoryFilter+"%'",conn)
     #SQLcategoryFilter="adult"
     
@@ -93,7 +94,7 @@ def join1_sites__policy_snapshots(conn):
     del result['id']
     #del result['id_x']
     print('merge1 result\n',result.columns)
-    return join2_result_policy_texts(conn,result), SQLcategoryFilter
+    join2_result_policy_texts(conn,result,SQLcategoryFilter,level)
 def UpdatedPrivacyPolicyClassifierColumnInJoin2(result):
     print('rows first\n\n',(result.shape))
     #result.groupby(result.year)['flesch_kincaid'].transform('mean')
@@ -150,9 +151,9 @@ def UpdatedPrivacyPolicyClassifierColumnInJoin2(result):
     
     
     
-    return(result)
+    #result
 
-def join2_result_policy_texts(conn,result):
+def join2_result_policy_texts(conn,result,SQLcategoryFilter,level):
     #flesch_kincaid, smog,
     policy_texts = pd.read_sql_query("SELECT id, policy_text,    length from policy_texts", conn)
     
@@ -189,15 +190,16 @@ def join2_result_policy_texts(conn,result):
     #del result['']
     #return(result)
     
-    return(join3_result_alexa_ranks(conn,result))
-def join3_result_alexa_ranks(conn,result):
+    join3_result_alexa_ranks(conn,result,SQLcategoryFilter,level)
+def join3_result_alexa_ranks(conn,result,SQLcategoryFilter,level):
     alexa_ranks = pd.read_sql_query("SELECT site_id, rank from alexa_ranks", conn)
     print(alexa_ranks.rank)
     print('alexa_ranks table imported\n', alexa_ranks.head())
     
     result = pd.merge(alexa_ranks, result, on=None, left_on="site_id", right_on="site_id",  how="inner")
     
-    return(result)
+    MainCode(result,SQLcategoryFilter,level)
+    #return(result)
     
     
 
@@ -215,13 +217,42 @@ def DatabaseInterrogation():
       #  select_task_by_priority(conn, 1)
 
         print("2. Query all tasks")
-        result, SQLcategoryFilter=join1_sites__policy_snapshots(conn)##3rd function called
-        return result, SQLcategoryFilter 
+        #make so loops in db then runs
+        #only if category not in excel?
+        left=pd.read_csv('SQL category run summary.csv')#previously ran
+        right=pd.read_csv('Categories lookup.csv')
+        SQLRUN = pd.merge(left, right, on=None, left_on="categories_historic", right_on="categories",  how="right")
+        #SQLRUN=SQLRUN##left join
+        #print(1,SQLRUN)
+        #SQLRUN = SQLRUN['categories_historic'].str.extract('^(N/A|NA|na|n/a)')
+        filter2=SQLRUN['categories_historic'].notnull()==False#.null()
+        #print(filter2)
+        SQLRUN=SQLRUN[filter2]#filter
+        #print(SQLRUN)#print(2,SQLRUN.categories_historic.notnull())
+        #loop SQLcategoryFilter
+        #'SQlcategoryQueries=SQLRUN['categories']
+        #print(SQlcategoryQueries)
+        print(1)
+        for i in SQLRUN.itertuples():
+            #print(i[3])#SQLquery
+            #print(i[4])#count colon for what level folder to gom into
+            #global level
+            level=i[4]
+            join1_sites__policy_snapshots(conn,i[3],level)
+     #   for i in range( len(SQLRUN)) :
+      #      print(i)
+       #     print(SQLRUN.loc[i,'categoriescountsemicolon'])#, df.loc[i, "Age"])
+        ###    print('row',i)
+           # print('QUERY ',x,'\n\n\n\n\n\n\n\n\n\n',x)
+            #join1_sites__policy_snapshots(conn,x)#pass levels through
+            
+            #print(SQlcategoryQueries.loc[i])#, df.loc[i, "Age"])
+        
+        #join1_sites__policy_snapshots(conn,SQLcategoryFilter)##3rd function called
+        #return result, SQLcategoryFilter 
 
 
-if __name__ == '__main__':
-    result, SQLcategoryFilter=DatabaseInterrogation()   #start
-    print('Database processing complete')
+
         
 
 
@@ -231,7 +262,7 @@ if __name__ == '__main__':
 
 
 
-def make_folder(SQLcategoryFilter):
+def make_folder(SQLcategoryFilter,level):
     # Directory
     #directory = SQLcategoryFilter
   
@@ -248,7 +279,14 @@ def make_folder(SQLcategoryFilter):
     mycodelocationpath= os.path.abspath(os.path.dirname(__file__))
     
     print('mycodelocationpath'+str(mycodelocationpath))#"C:/Users/layto/OneDrive/Documents/GitHub/Group-6-technica-lcode/"+
-    path=mycodelocationpath+'\ '+str(SQLcategoryFilter)
+    path=mycodelocationpath+'\ '+str(level)
+
+    try: 
+        os.mkdir(path) 
+    except OSError as error: 
+        print(error)  
+    print('code continued')
+    path=mycodelocationpath+'\ '+str(level)+'\ '+str(SQLcategoryFilter)
 
     try: 
         os.mkdir(path) 
@@ -258,7 +296,7 @@ def make_folder(SQLcategoryFilter):
    
     
 
-def MainCode(result,SQLcategoryFilter):
+def MainCode(result,SQLcategoryFilter,level):
      """
      Query all rows in the tasks table
      :param conn: the Connection object
@@ -267,7 +305,7 @@ def MainCode(result,SQLcategoryFilter):
      
      
      
-     make_folder(SQLcategoryFilter)
+     make_folder(SQLcategoryFilter,level)
 
      #result['child']= re.findall('child[^, ]+',result['policy_text'])
      columns=result.columns
@@ -303,9 +341,9 @@ def MainCode(result,SQLcategoryFilter):
      #working hashed for efficiency
      makebarchart(result["year"],result.groupby(result.year)['categories'].transform('count'),'Year','relevant samples that year',SQLcategoryFilter)
      makebarchart(result["year"],result.groupby(result.year)['nlp'].transform('mean'),'Year','Mean count of child synonyms',SQLcategoryFilter)
-     del result['nlp']
+     #del result['nlp']
      makebarchart(result["year"],result.groupby(result.year)['nlpGDPR'].transform('mean'),'Year','Mean count of GDPR',SQLcategoryFilter)
-     del result['nlpGDPR']
+     #del result['nlpGDPR']
      makebarchart(result['year'],result.groupby(result.year)['length'].transform('mean'),'Year','Mean length',SQLcategoryFilter)
 
      #result['contain_easy'] = result['flesch_ease'].str.count.contains('easy')*100
@@ -324,6 +362,24 @@ def MainCode(result,SQLcategoryFilter):
      #flesch_scores(result, SQLcategoryFilter)
      print('All flesch_scores Graphs constructed')
      
+     #save in Excel
+     
+     #aggregates=[result[]]
+     
+     my_array = np.array(SQLcategoryFilter,level, result['flesch_kincaid'].max(), result['flesch_kincaid'].min(),
+                         result['smog'].max(),result['smog'].min(),result['nlp'].max(),result['nlp'].min(),
+                         result['nlpGDPR'].max(),result['nlpGDPR'].min(),result['length'].max(),result['length'].min())                    
+
+     df = pd.DataFrame(my_array, columns = ['categories_historical','level','flesch_kincaid_max','flesch_kincaid_min',
+                                            'smog_max','smog_min','child_synonyms_max','child_synonyms_min',
+                                            'GDPR max','GDPR min','length max','length min'
+                                            ])
+
+     #order=np.array([categories historicalflesch_ease,flesch_kincaid,smog,nlp,nlpGDPR,length])#just write max and min
+     df.to_csv('SQL category run summary.csv', mode='w', index=False, header=False)
+     #result.to_csv('Categories lookup.csv', mode='a', index=False, header=False)
+     #write first time then changeto append
+     #pass levels through then set up folder saving structure
      
      ##now make a loop to make all possible graphs against year
 def flesch_scores(result, SQLcategoryFilter):
@@ -371,7 +427,7 @@ def flesch_scores(result, SQLcategoryFilter):
                 'Mean percentage of privacy policies that are rated as none (Not Applicable) in difficulty to read',SQLcategoryFilter)
      del result['contain_none']
  
-                                                         
+                                                     
 def makebarchart(x,y,xlabel,ylabel,SQLcategoryfilter):
     
    savelabelSQLcategoryfilter=SQLcategoryfilter
@@ -403,9 +459,13 @@ def makebarchart(x,y,xlabel,ylabel,SQLcategoryfilter):
    plt.show()
    print(titlelabel+' Graph created')
 
-if __name__ == '__main__':
-    MainCode(result,SQLcategoryFilter)
+#if __name__ == '__main__':
+ #   MainCode(result,SQLcategoryFilter)
     #create_connection(\"C:\\Users\\layto\\sqlite\")#
     
     
 #move joins into one SQL statement
+if __name__ == '__main__':
+    
+    result, SQLcategoryFilter=DatabaseInterrogation()   #start
+    print('Database processing complete')
