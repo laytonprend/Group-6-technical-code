@@ -57,8 +57,8 @@ def create_connection(db_file):
 
 def join1_sites__policy_snapshots(conn):
     #sites = pd.read_sql_query("SELECT id, categories from sites WHERE (categories LIKE '%social%' OR categories LIKE '%tech%' OR categories LIKE '%media%') AND  ( (categories LIKE '%sharing%')  OR  categories LIKE '%messageboard%' OR categories LIKE '%blogsandpersonal%') AND NOT categories LIKE '%news%'",conn)
-    sites = pd.read_sql_query("SELECT id, categories from sites WHERE categories LIKE '%gambling%'",conn)
-    SQLcategoryFilter="gambling"
+    sites = pd.read_sql_query("SELECT id, categories from sites WHERE categories LIKE '%adult%'",conn)
+    SQLcategoryFilter="adult"
     
     #print('rows after\n\n',result.shape)
     
