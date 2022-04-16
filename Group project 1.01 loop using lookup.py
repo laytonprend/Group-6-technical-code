@@ -65,8 +65,9 @@ def create_connection(db_file):
 def join1_sites__policy_snapshots(conn,SQLcategoryFilter,level):
     #sites = pd.read_sql_query("SELECT id, categories from sites WHERE (categories LIKE '%social%' OR categories LIKE '%tech%' OR categories LIKE '%media%') AND  ( (categories LIKE '%sharing%')  OR  categories LIKE '%messageboard%' OR categories LIKE '%blogsandpersonal%') AND NOT categories LIKE '%news%'",conn)
     #SQLcategoryFilter="adult"
-    SQLcategoryFilter=str(SQLcategoryFilter)
-    sites = pd.read_sql_query("SELECT id, categories from sites WHERE categories LIKE '%"+SQLcategoryFilter+"%'",conn)
+    #SQLcategoryFilter=SQLcategoryFilter
+    print('joimn1 start sql',SQLcategoryFilter)
+    sites = pd.read_sql_query("SELECT id, categories from sites WHERE categories LIKE '%"+str(SQLcategoryFilter)+"%'",conn)
     
     #temp
     
@@ -105,6 +106,7 @@ def join1_sites__policy_snapshots(conn,SQLcategoryFilter,level):
     del result['id']
     #del result['id_x']
     print('merge1 result\n',result.columns)
+    print('join 1 end sql',SQLcategoryFilter)
     join2_result_policy_texts(conn,result,SQLcategoryFilter,level)
 def UpdatedPrivacyPolicyClassifierColumnInJoin2(result):
     print('rows first\n\n',(result.shape))
@@ -200,7 +202,7 @@ def join2_result_policy_texts(conn,result,SQLcategoryFilter,level):
     #del result['']
     #del result['']
     #return(result)
-    
+    print('join 2 sql',SQLcategoryFilter)
     join3_result_alexa_ranks(conn,result,SQLcategoryFilter,level)
 def join3_result_alexa_ranks(conn,result,SQLcategoryFilter,level):
     alexa_ranks = pd.read_sql_query("SELECT site_id, rank from alexa_ranks", conn)
@@ -208,7 +210,7 @@ def join3_result_alexa_ranks(conn,result,SQLcategoryFilter,level):
     print('alexa_ranks table imported\n', alexa_ranks.head())
     
     result = pd.merge(alexa_ranks, result, on=None, left_on="site_id", right_on="site_id",  how="inner")
-    
+    print('join 3 sql',SQLcategoryFilter)
     MainCode(result,SQLcategoryFilter,level)
     #return(result)
     
@@ -231,31 +233,47 @@ def DatabaseInterrogation():
         #make so loops in db then runs
         #only if category not in excel?
         left=pd.read_csv('SQL category run summary.csv')#previously ran
+        print('left',left)
         right=pd.read_csv('Categories lookup.csv')
+        print('right',right)
         SQLRUN = pd.merge(left, right, on=None, left_on="SQLsearchHistorical", right_on="categories",  how="right")
         #SQLRUN=SQLRUN##left join
-        #print(1,SQLRUN)
+        print('joined',SQLRUN)
         #SQLRUN = SQLRUN['categories_historic'].str.extract('^(N/A|NA|na|n/a)')
         filter2=SQLRUN['SQLsearchHistorical'].notnull()==False#.null()
         #print(filter2)
-        SQLRUN=SQLRUN[filter2]#filter
+        SQLRUN=SQLRUN[filter2]
+        #SQLRUN=SQLRUN['categories','categoriescountsemicolon']
+        SQLRUN=SQLRUN[['categories','categoriescountsemicolon']]
+        print('newsqlrun',SQLRUN)
+        
+        #filter
         #print(SQLRUN)#print(2,SQLRUN.categories_historic.notnull())
         #loop SQLcategoryFilter
         #'SQlcategoryQueries=SQLRUN['categories']
         #print(SQlcategoryQueries)
+        print(SQLRUN['categories'].unique())
         print(1)
-        
+        #SQLRUN['index']=SQLRUN.index()
         for i in SQLRUN.itertuples():
+            print(i)
             #print(i[3])#SQLquery
             #print(i[4])#count colon for what level folder to gom into
             #global level
+            print('i0',i[0])
+            print('i1',i[1])
+            print('i2',i[2])
+            #print('i3',i[3])#close file?, so can write to it further down
+            
             
             try:
-                level=i[4]
-                SQLquery=str(i[3])
-                print('SQLquery',SQLquery)
-    
-                join1_sites__policy_snapshots(conn,SQLquery,level)
+                level=i[2]
+                SQLquery=str(i[1])
+                
+                if i[0]>0:
+                    print('SQLquery',SQLquery)
+                    print('SQLquery',SQLquery)
+                    join1_sites__policy_snapshots(conn,str(SQLquery),level)
             except MemoryError as error:
             # Output expected MemoryErrors.
                 #SQLquery.to_csv('MemoryErrorSearches.csv', mode='a', index=False, header=False)#log_excep(error)
@@ -276,15 +294,8 @@ def DatabaseInterrogation():
                 with open(r'MemoryErrorSearches', 'a') as f:
                     writer = csv.writer(f)
                     writer.writerow(fields)
-                
-                
-                
-              
-            
-            
-            
-            
-            join1_sites__policy_snapshots(conn,i[3],level)
+                    
+            #join1_sites__policy_snapshots(conn,i[3],level)
      #   for i in range( len(SQLRUN)) :
       #      print(i)
        #     print(SQLRUN.loc[i,'categoriescountsemicolon'])#, df.loc[i, "Age"])
@@ -348,6 +359,7 @@ def MainCode(result,SQLcategoryFilter,level):
      :param conn: the Connection object
      :return:
      """
+     print('MAINCODE SQL\n\n\n\n\n\n',SQLcategoryFilter)
      
      
      
@@ -438,6 +450,7 @@ def MainCode(result,SQLcategoryFilter,level):
          #print(x)
          uniquecategories=uniquecategories+'. '+str(x)
      #print(uniquecategories)
+     print('SQLcategoryFilter checker',SQLcategoryFilter)
      data={'SQLsearchHistorical':[SQLcategoryFilter],
       'categories_included_in_search':uniquecategories,
       'level':[level],
@@ -460,10 +473,11 @@ def MainCode(result,SQLcategoryFilter,level):
      SQLrunSummary = pd.DataFrame(data)
      print(SQLrunSummary)
      #order=np.array([categories historicalflesch_ease,flesch_kincaid,smog,nlp,nlpGDPR,length])#just write max and min
-     SQLrunSummary.to_csv('SQL category run summary.csv', mode='a', index=False, header=False)
+     SQLrunSummary.to_csv('SQL category run summary2.csv', mode='a', index=False, header=False)
      #result.to_csv('Categories lookup.csv', mode='a', index=False, header=False)
      #write first time then changeto append
      #pass levels through then set up folder saving structure
+     #way to append SQLsummary too?3
      
      ##now make a loop to make all possible graphs against year
 def flesch_scores(result, SQLcategoryFilter):
