@@ -1,4 +1,5 @@
 ,categories,categoriescountsemicolon
+,,
 0,business;informationtech,1
 4,games,0
 5,business;entertainment,1
@@ -498,3 +499,4 @@
 125368,business;messageboardsandforums;weapons,2
 126149,adult;business;education,2
 129514,education;informationtech;streamingmedia,2
+,a%' OR '%e%' OR '%i%' OR '%o%' OR '%U,-1

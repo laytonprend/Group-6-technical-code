@@ -16,6 +16,12 @@ from sqlite3 import Error
 import pandas as pd
 import numpy as np
 
+import psutil
+import sys
+import traceback
+
+import csv
+
 
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -59,7 +65,12 @@ def create_connection(db_file):
 def join1_sites__policy_snapshots(conn,SQLcategoryFilter,level):
     #sites = pd.read_sql_query("SELECT id, categories from sites WHERE (categories LIKE '%social%' OR categories LIKE '%tech%' OR categories LIKE '%media%') AND  ( (categories LIKE '%sharing%')  OR  categories LIKE '%messageboard%' OR categories LIKE '%blogsandpersonal%') AND NOT categories LIKE '%news%'",conn)
     #SQLcategoryFilter="adult"
+    SQLcategoryFilter=str(SQLcategoryFilter)
     sites = pd.read_sql_query("SELECT id, categories from sites WHERE categories LIKE '%"+SQLcategoryFilter+"%'",conn)
+    
+    #temp
+    
+    
     #SQLcategoryFilter="adult"
     
     #print('rows after\n\n',result.shape)
@@ -221,11 +232,11 @@ def DatabaseInterrogation():
         #only if category not in excel?
         left=pd.read_csv('SQL category run summary.csv')#previously ran
         right=pd.read_csv('Categories lookup.csv')
-        SQLRUN = pd.merge(left, right, on=None, left_on="categories_historic", right_on="categories",  how="right")
+        SQLRUN = pd.merge(left, right, on=None, left_on="SQLsearchHistorical", right_on="categories",  how="right")
         #SQLRUN=SQLRUN##left join
         #print(1,SQLRUN)
         #SQLRUN = SQLRUN['categories_historic'].str.extract('^(N/A|NA|na|n/a)')
-        filter2=SQLRUN['categories_historic'].notnull()==False#.null()
+        filter2=SQLRUN['SQLsearchHistorical'].notnull()==False#.null()
         #print(filter2)
         SQLRUN=SQLRUN[filter2]#filter
         #print(SQLRUN)#print(2,SQLRUN.categories_historic.notnull())
@@ -233,11 +244,46 @@ def DatabaseInterrogation():
         #'SQlcategoryQueries=SQLRUN['categories']
         #print(SQlcategoryQueries)
         print(1)
+        
         for i in SQLRUN.itertuples():
             #print(i[3])#SQLquery
             #print(i[4])#count colon for what level folder to gom into
             #global level
-            level=i[4]
+            
+            try:
+                level=i[4]
+                SQLquery=str(i[3])
+                print('SQLquery',SQLquery)
+    
+                join1_sites__policy_snapshots(conn,SQLquery,level)
+            except MemoryError as error:
+            # Output expected MemoryErrors.
+                #SQLquery.to_csv('MemoryErrorSearches.csv', mode='a', index=False, header=False)#log_excep(error)
+                fields=['SQLsearchHistorical']
+
+                with open(r'MemoryErrorSearches', 'a') as f:
+                    writer = csv.writer(f)
+                    writer.writerow(fields)
+    
+                
+                break
+            except Exception as exception:
+            # Output unexpected Exceptions.
+                #log_exception(exception, False)
+                #SQLquery.to_csv('MemoryErrorSearches.csv', mode='a', index=False, header=False)#log_excep(error)
+                fields=['SQLsearchHistorical']
+
+                with open(r'MemoryErrorSearches', 'a') as f:
+                    writer = csv.writer(f)
+                    writer.writerow(fields)
+                
+                
+                
+              
+            
+            
+            
+            
             join1_sites__policy_snapshots(conn,i[3],level)
      #   for i in range( len(SQLRUN)) :
       #      print(i)
@@ -339,12 +385,17 @@ def MainCode(result,SQLcategoryFilter,level):
 
     
      #working hashed for efficiency
+     
+     nlpGDPRyear=result.groupby(result.year)['nlpGDPR'].transform('mean')
      makebarchart(result["year"],result.groupby(result.year)['categories'].transform('count'),'Year','relevant samples that year',SQLcategoryFilter)
-     makebarchart(result["year"],result.groupby(result.year)['nlp'].transform('mean'),'Year','Mean count of child synonyms',SQLcategoryFilter)
+     nlpyear=result.groupby(result.year)['nlp'].transform('mean')
+     makebarchart(result["year"],nlpyear,'Year','Mean count of child synonyms',SQLcategoryFilter)
      #del result['nlp']
-     makebarchart(result["year"],result.groupby(result.year)['nlpGDPR'].transform('mean'),'Year','Mean count of GDPR',SQLcategoryFilter)
+     nlpGDPRyear=result.groupby(result.year)['nlpGDPR'].transform('mean')
+     makebarchart(result["year"],nlpGDPRyear,'Year','Mean count of GDPR',SQLcategoryFilter)
      #del result['nlpGDPR']
-     makebarchart(result['year'],result.groupby(result.year)['length'].transform('mean'),'Year','Mean length',SQLcategoryFilter)
+     lengthyear=result.groupby(result.year)['length'].transform('mean')
+     makebarchart(result['year'],lengthyear,'Year','Mean length',SQLcategoryFilter)
 
      #result['contain_easy'] = result['flesch_ease'].str.count.contains('easy')*100
      #result['contain_easy'] = result['flesch_ease'].str.count.contains('easy')*100
@@ -352,10 +403,11 @@ def MainCode(result,SQLcategoryFilter,level):
      #unique flesch_ease scores ['difficult' 'very_confusing' None 'fairly_difficult' 'standard' 'easy' 'fairly_easy']
      
      
-
-     makebarchart(result['year'],result.groupby(result.year)['flesch_kincaid'].transform('mean'),'Year',
+     flesch_kincaidyear=result.groupby(result.year)['flesch_kincaid'].transform('mean')
+     makebarchart(result['year'],flesch_kincaidyear,'Year',
                 'Mean flesch_kincaid',SQLcategoryFilter)#lower is harder, so getting slightly easier since 2000
-     makebarchart(result['year'],result.groupby(result.year)['smog'].transform('mean'),'Year',
+     smogyear=result.groupby(result.year)['smog'].transform('mean')
+     makebarchart(result['year'],smogyear,'Year',
                 'Mean smog',SQLcategoryFilter)#years of education needed to read
           
      
@@ -365,18 +417,50 @@ def MainCode(result,SQLcategoryFilter,level):
      #save in Excel
      
      #aggregates=[result[]]
-     
-     my_array = np.array(SQLcategoryFilter,level, result['flesch_kincaid'].max(), result['flesch_kincaid'].min(),
-                         result['smog'].max(),result['smog'].min(),result['nlp'].max(),result['nlp'].min(),
-                         result['nlpGDPR'].max(),result['nlpGDPR'].min(),result['length'].max(),result['length'].min())                    
-
-     df = pd.DataFrame(my_array, columns = ['categories_historical','level','flesch_kincaid_max','flesch_kincaid_min',
-                                            'smog_max','smog_min','child_synonyms_max','child_synonyms_min',
-                                            'GDPR max','GDPR min','length max','length min'
-                                            ])
-
+ #    arr=[[SQLcategoryFilter],result['categories'].unique(),[level],[result.groupby(result.year)['categories'].transform('count').sum()],
+  #        [result.groupby(result.year)['flesch_kincaid'].transform('mean').max()], [result.groupby(result.year)['flesch_kincaid'].transform('mean').min()],
+   #                      [result.groupby(result.year)['smog'].transform('mean').max()],[result.groupby(result.year)['smog'].transform('mean').min()],
+    #                     [result.groupby(result.year)['nlp'].transform('mean').max()],[result.groupby(result.year)['nlp'].transform('mean').min()],
+     #                    [result.groupby(result.year)['nlpGDPR'].transform('mean').max()],[result.groupby(result.year)['nlpGDPR'].transform('mean').min()],
+      #                   [result.groupby(result.year)['length'].transform('mean').max()],[result.groupby(result.year)['length'].transform('mean').min()]]
+ #    my_array = np.array(arr)#maybe change to max of by year mean?                    
+     print('now make df')
+   #  df = pd.DataFrame(my_array, columns = ['SQLsearchHistorical','categories_included_in_search','level','rows','flesch_kincaid_max','flesch_kincaid_min',
+    #                                        'smog_max','smog_min','child_synonyms_max','child_synonyms_min',
+     #                                       'GDPR max','GDPR min','length max','length min'
+      #                                      ])
+     #print(df)
      #order=np.array([categories historicalflesch_ease,flesch_kincaid,smog,nlp,nlpGDPR,length])#just write max and min
-     df.to_csv('SQL category run summary.csv', mode='w', index=False, header=False)
+     #df.to_csv('SQL category run summary.csv', mode='w', index=False, header=False)    
+     uniquecategories=''
+     uniquecategories=''
+     for x in result['categories'].unique():
+         #print(x)
+         uniquecategories=uniquecategories+'. '+str(x)
+     #print(uniquecategories)
+     data={'SQLsearchHistorical':[SQLcategoryFilter],
+      'categories_included_in_search':uniquecategories,
+      'level':[level],
+      'rows':[result.groupby(result.year)['categories'].transform('count').sum()],
+      'flesch_kincaid_max':[flesch_kincaidyear.max()],
+      'flesch_kincaid_min':[flesch_kincaidyear.min()],
+      'smog_max':[smogyear.max()],
+      'smog_min':[smogyear.min()],
+      'child_synonyms_max':[nlpyear.max()],
+      'child_synonyms_min':[nlpyear.min()],
+      'GDPR max':[nlpGDPRyear.max()],
+      'GDPR min':[nlpGDPRyear.min()],
+      'length max':[lengthyear.max()],
+      'length min':[lengthyear.min()]
+      
+     
+      }
+#my_array = np.array(arr)#maybe change to max of by year mean?                   
+#print('now make df')
+     SQLrunSummary = pd.DataFrame(data)
+     print(SQLrunSummary)
+     #order=np.array([categories historicalflesch_ease,flesch_kincaid,smog,nlp,nlpGDPR,length])#just write max and min
+     SQLrunSummary.to_csv('SQL category run summary.csv', mode='a', index=False, header=False)
      #result.to_csv('Categories lookup.csv', mode='a', index=False, header=False)
      #write first time then changeto append
      #pass levels through then set up folder saving structure
