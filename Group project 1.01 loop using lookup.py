@@ -269,37 +269,66 @@ def DatabaseInterrogationLoop(SQLRUN,StartIndex,conn):
             
             level=i[2]
             SQLquery=str(i[1])
-            try:
+            #try:
                 
                 
-                if i[0]>0 and i[0]>StartIndex:#index
+            if i[0]>0 and i[0]>StartIndex:#index
                     print('SQLquery',SQLquery)
                     print('SQLquery',SQLquery)
-                    join1_sites__policy_snapshots(conn,str(SQLquery),level)
-            except MemoryError as error:
-            # Output expected MemoryErrors
-                print('memory error')
-                #SQLquery.to_csv('MemoryErrorSearches.csv', mode='a', index=False, header=False)#log_excep(error)
-                fields=['SQLsearchHistorical']
+                    global path 
+                    mycodelocationpath= os.path.abspath(os.path.dirname(__file__))
+    
+                    print('mycodelocationpath'+str(mycodelocationpath))#"C:/Users/layto/OneDrive/Documents/GitHub/Group-6-technica-lcode/"+
+                    path=mycodelocationpath+'\ '+str(level)
 
-                with open(r'MemoryErrorSearches', 'a') as f:
-                    writer = csv.writer(f)
-                    writer.writerow(fields)
-                DatabaseInterrogationLoop(SQLRUN,i[0],conn)#recall when error
+                    try: 
+                        os.mkdir(path) 
+                    except OSError as error: 
+                        print(error)  
+                    print('code continued, level folder')
+                    path=mycodelocationpath+'\ '+str(level)+'\ '+str(SQLquery)
+
+                    try: 
+                        os.mkdir(path) 
+                        print('code continued',path,SQLquery)
+                        try:
+                            join1_sites__policy_snapshots(conn,str(SQLquery),level)
+                        except MemoryError as error:
+            # Output expected MemoryErrors
+                            print('memory error')
+                #SQLquery.to_csv('MemoryErrorSearches.csv', mode='a', index=False, header=False)#log_excep(error)
+                            fields=[SQLquery]
+
+                            with open(r'MemoryErrorSearches.csv', 'a') as f:
+                                writer = csv.writer(f)
+                                writer.writerow(fields)
+               # df3.to_csv('test SQL category run summary2.csv', mode='a', index=False,Header=False)
+                            DatabaseInterrogationLoop(SQLRUN,i[0],conn)#recall when error
                 
-                break
-            except Exception as exception:
-                print('memory error2')
+                            break
+                        except Exception as exception:
+                            print('memory error2')
             # Output unexpected Exceptions.
                 #log_exception(exception, False)
                 #SQLquery.to_csv('MemoryErrorSearches.csv', mode='a', index=False, header=False)#log_excep(error)
-                fields=['SQLsearchHistorical']
+                            fields=[SQLquery]
 
-                with open(r'MemoryErrorSearches', 'a') as f:
-                    writer = csv.writer(f)
-                    writer.writerow(fields)
-                DatabaseInterrogationLoop(SQLRUN,i[0],conn)#recall when error
-                    
+                            with open(r'MemoryErrorSearches.csv', 'a') as f:
+                                writer = csv.writer(f)
+                                writer.writerow(fields)
+                            DatabaseInterrogationLoop(SQLRUN,i[0],conn)#recall when error
+                            break
+                    except OSError as error: #if folder e.g. /1/games made then assumes graphs are made and doesn't create
+                        print(error)
+                        DatabaseInterrogationLoop(SQLRUN,i[0],conn)#recall when error
+                        break
+
+     #result['child'
+                        
+            
+
+
+     #result['child'                    
             #join1_sites__policy_snapshots(conn,i[3],level)
      #   for i in range( len(SQLRUN)) :
       #      print(i)
@@ -364,12 +393,12 @@ def MainCode(result,SQLcategoryFilter,level):
      :param conn: the Connection object
      :return:
      """
-     print('MAINCODE SQL\n\n\n\n\n\n',SQLcategoryFilter)
+     #print('MAINCODE SQL\n\n\n\n\n\n',SQLcategoryFilter)
      
      
      
      #make_folder(SQLcategoryFilter,level)
-     global path 
+     '''   global path 
      mycodelocationpath= os.path.abspath(os.path.dirname(__file__))
     
      print('mycodelocationpath'+str(mycodelocationpath))#"C:/Users/layto/OneDrive/Documents/GitHub/Group-6-technica-lcode/"+
@@ -384,20 +413,20 @@ def MainCode(result,SQLcategoryFilter,level):
 
      try: 
          os.mkdir(path) 
-         print('code continued')
+         print('code continued')'''
 
      #result['child']= re.findall('child[^, ]+',result['policy_text'])
-         columns=result.columns
-         fieldnames=[]
-         for x in columns:
+     columns=result.columns
+     fieldnames=[]
+     for x in columns:
             #print(x)
-            fieldnames.append(str(x))
-         print('fieldnames',fieldnames)
+        fieldnames.append(str(x))
+     print('fieldnames',fieldnames)
      
      
      
     
-         print('nlp',result['nlp'])
+     print('nlp',result['nlp'])
      #fieldnames.remove('year')
      #SQLcategoryFilter="when categories are related to gaming"
 
@@ -405,36 +434,36 @@ def MainCode(result,SQLcategoryFilter,level):
      #working hashed for efficiency
      
          
-         makebarchart(result["year"],result.groupby(result.year)['categories'].transform('count'),'Year','relevant samples that year',SQLcategoryFilter)
-         result['nlp']=result['policy_text'].str.count("Parental|parental|guardian|Guardian|child|Child|Child's|child's|Minor|minor|underage|child|kid|young|youth|young people|under-18|under-13|under 13|under 18|under 12|13 years old|under 13 years old|under 18 years old|age of 13|under the age of 18")##here is where to adjust what words ar being checked, not earlier on so other graphs
+     makebarchart(result["year"],result.groupby(result.year)['categories'].transform('count'),'Year','relevant samples that year',SQLcategoryFilter)
+     result['nlp']=result['policy_text'].str.count("Parental|parental|guardian|Guardian|child|Child|Child's|child's|Minor|minor|underage|child|kid|young|youth|young people|under-18|under-13|under 13|under 18|under 12|13 years old|under 13 years old|under 18 years old|age of 13|under the age of 18")##here is where to adjust what words ar being checked, not earlier on so other graphs
          
-         nlpyear=result.groupby(result.year)['nlp'].transform('mean')
-         makebarchart(result["year"],nlpyear,'Year','Mean count of child synonyms',SQLcategoryFilter)
+     nlpyear=result.groupby(result.year)['nlp'].transform('mean')
+     makebarchart(result["year"],nlpyear,'Year','Mean count of child synonyms',SQLcategoryFilter)
      
          #result['nlpGDPR']=result['policy_text'].str.count("GDPR")##here is where to adjust what words ar being checked, not earlier on so other graphs
          
          #nlpGDPRyear=result.groupby(result.year)['nlpGDPR'].transform('mean')
          #makebarchart(result["year"],nlpGDPRyear,'Year','Mean count of GDPR',SQLcategoryFilter)
      #del result['nlpGDPR']
-         lengthyear=result.groupby(result.year)['length'].transform('mean')
-         makebarchart(result['year'],lengthyear,'Year','Mean length',SQLcategoryFilter)
+     lengthyear=result.groupby(result.year)['length'].transform('mean')
+     makebarchart(result['year'],lengthyear,'Year','Mean length',SQLcategoryFilter)
 
 
      
-         flesch_kincaidyear=result.groupby(result.year)['flesch_kincaid'].transform('mean')
-         makebarchart(result['year'],flesch_kincaidyear,'Year',
+     flesch_kincaidyear=result.groupby(result.year)['flesch_kincaid'].transform('mean')
+     makebarchart(result['year'],flesch_kincaidyear,'Year',
                 'Mean flesch_kincaid',SQLcategoryFilter)#lower is harder, so getting slightly easier since 2000
-         smogyear=result.groupby(result.year)['smog'].transform('mean')
-         makebarchart(result['year'],smogyear,'Year',
+     smogyear=result.groupby(result.year)['smog'].transform('mean')
+     makebarchart(result['year'],smogyear,'Year',
                 'Mean smog',SQLcategoryFilter)#years of education needed to read
           
      
      #flesch_scores(result, SQLcategoryFilter)
-         print('All flesch_scores Graphs constructed')
+     print('All flesch_scores Graphs constructed')
      
      #save in Excel
      
-         print('now make df')
+     print('now make df')
    #  df = pd.DataFrame(my_array, columns = ['SQLsearchHistorical','categories_included_in_search','level','rows','flesch_kincaid_max','flesch_kincaid_min',
     #                                        'smog_max','smog_min','child_synonyms_max','child_synonyms_min',
      #                                       'GDPR max','GDPR min','length max','length min'
@@ -442,14 +471,14 @@ def MainCode(result,SQLcategoryFilter,level):
      #print(df)
      #order=np.array([categories historicalflesch_ease,flesch_kincaid,smog,nlp,nlpGDPR,length])#just write max and min
      #df.to_csv('SQL category run summary.csv', mode='w', index=False, header=False)    
-         uniquecategories=''
-         uniquecategories=''
-         for x in result['categories'].unique():
+     uniquecategories=''
+     uniquecategories=''
+     for x in result['categories'].unique():
          #print(x)
-             uniquecategories=uniquecategories+'. '+str(x)
+         uniquecategories=uniquecategories+'. '+str(x)
      #print(uniquecategories)
-         print('SQLcategoryFilter checker',SQLcategoryFilter)
-         data={'SQLsearchHistorical':[SQLcategoryFilter],
+     print('SQLcategoryFilter checker',SQLcategoryFilter)
+     data={'SQLsearchHistorical':[SQLcategoryFilter],
       'categories_included_in_search':uniquecategories,
       'level':[level],
       'rows':[result.groupby(result.year)['categories'].transform('count').sum()],
@@ -468,18 +497,18 @@ def MainCode(result,SQLcategoryFilter,level):
       }
 #my_array = np.array(arr)#maybe change to max of by year mean?                   
 #print('now make df')
-         SQLrunSummary = pd.DataFrame(data)
-         print(SQLrunSummary)
+     SQLrunSummary = pd.DataFrame(data)
+     print(SQLrunSummary)
      #order=np.array([categories historicalflesch_ease,flesch_kincaid,smog,nlp,nlpGDPR,length])#just write max and min
-         SQLrunSummary.to_csv('SQL category run summary2.csv', mode='a', index=False, Header=False)
-         SQLrunSummary.to_csv(path+"\."+'SQL category run summary.csv', mode='w', index=False)
+     SQLrunSummary.to_csv('SQL category run summary2.csv', mode='a', index=False, Header=False)
+     SQLrunSummary.to_csv(path+"\."+'SQL category run summary.csv', mode='w', index=False)
          #path+"\."
      #result.to_csv('Categories lookup.csv', mode='a', index=False, header=False)
      #write first time then changeto append
      #pass levels through then set up folder saving structure
      #way to append SQLsummary too?3
-     except OSError as error: #if folder e.g. /1/games made then assumes graphs are made and doesn't create
-         print(error)  
+ #    except OSError as error: #if folder e.g. /1/games made then assumes graphs are made and doesn't create
+  #       print(error)  
      
      
      ##now make a loop to make all possible graphs against year

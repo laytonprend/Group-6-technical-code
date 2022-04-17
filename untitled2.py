@@ -39,10 +39,12 @@ data={'SQLsearchHistorical':[1],
 #print('now make df')
 df = pd.DataFrame(data)
 print(df)
-df2=pd.read_csv(r'test SQL category run summary')
+#df2=pd.read_csv(r'test SQL category run summary.csv')
 df3=pd.concat([df, df2])
 print(df3)
      #order=np.array([categories historicalflesch_ease,flesch_kincaid,smog,nlp,nlpGDPR,length])#just write max and min
-df3.to_csv('test SQL category run summary2.csv', mode='a', index=True)
+#df3.to_csv('test SQL category run summary2.csv', mode='a', index=True)
 
 #relearn append as not working
+
+#append_df_to_excel('test SQL category run summary')
