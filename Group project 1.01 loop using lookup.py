@@ -6,6 +6,8 @@ Created on Tue Mar 15 20:21:57 2022
 """
 #rmemeber to open SQLite3
 #PIP INSTALL SQLITE3
+#.open DB
+
 # https://visualstudio.microsoft.com/downloads/
 #Pip install fuzzywuzzy
 #Pip install python-Levenshtein
@@ -254,10 +256,11 @@ def DatabaseInterrogation():
         #print(SQlcategoryQueries)
         #print(SQLRUN['categories'].unique())
         print(1)
-        DatabaseInterrogationLoop(SQLRUN,0,conn)
-def DatabaseInterrogationLoop(SQLRUN,StartIndex,conn):
-        #SQLRUN['index']=SQLRUN.index()
         for i in SQLRUN.itertuples():
+            DatabaseInterrogationLoop(i,SQLRUN,0,conn)
+def DatabaseInterrogationLoop(i,SQLRUN,StartIndex,conn):
+        #SQLRUN['index']=SQLRUN.index()
+       # for i in SQLRUN.itertuples():
             print(i)
             #print(i[3])#SQLquery
             #print(i[4])#count colon for what level folder to gom into
@@ -305,7 +308,7 @@ def DatabaseInterrogationLoop(SQLRUN,StartIndex,conn):
                # df3.to_csv('test SQL category run summary2.csv', mode='a', index=False,Header=False)
                             DatabaseInterrogationLoop(SQLRUN,i[0],conn)#recall when error
                 
-                            break
+                           
                         except Exception as exception:
                             print('memory error2')
             # Output unexpected Exceptions.
@@ -317,11 +320,11 @@ def DatabaseInterrogationLoop(SQLRUN,StartIndex,conn):
                                 writer = csv.writer(f)
                                 writer.writerow(fields)
                             DatabaseInterrogationLoop(SQLRUN,i[0],conn)#recall when error
-                            break
+                           
                     except OSError as error: #if folder e.g. /1/games made then assumes graphs are made and doesn't create
                         print(error)
-                        DatabaseInterrogationLoop(SQLRUN,i[0],conn)#recall when error
-                        break
+                       # DatabaseInterrogationLoop(SQLRUN,i[0],conn)#recall when error
+                 
 
      #result['child'
                         
@@ -481,8 +484,8 @@ def MainCode(result,SQLcategoryFilter,level):
      data={'SQLsearchHistorical':[SQLcategoryFilter],
       'categories_included_in_search':uniquecategories,
       'level':[level],
-      'rows':[result.groupby(result.year)['categories'].transform('count').sum()],
-      'flesch_kincaid_max':[flesch_kincaidyear.max()],
+      'rows':[result.groupby(result.year)['categories'].transform('count').sum()],#possibly remove grouby year
+      'flesch_kincaid_max':[flesch_kincaidyear.max()],#line chart approach
       'flesch_kincaid_min':[flesch_kincaidyear.min()],
       'smog_max':[smogyear.max()],
       'smog_min':[smogyear.min()],
@@ -491,8 +494,7 @@ def MainCode(result,SQLcategoryFilter,level):
       #'GDPR max':[nlpGDPRyear.max()],
       #'GDPR min':[nlpGDPRyear.min()],
       'length max':[lengthyear.max()],
-      'length min':[lengthyear.min()]
-      
+      'length min':[lengthyear.min()]     
      
       }
 #my_array = np.array(arr)#maybe change to max of by year mean?                   
