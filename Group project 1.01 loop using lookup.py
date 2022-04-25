@@ -38,6 +38,12 @@ sns.set()
 
 con = sqlite3.connect("DB")
 
+
+    
+    
+
+    
+    
 def sql_fetch(con):
 
     cursorObj = con.cursor()
@@ -63,164 +69,6 @@ def create_connection(db_file):
         print(e)
 
     return conn
-
-def join1_sites__policy_snapshots(conn,SQLcategoryFilter,level):
-    #sites = pd.read_sql_query("SELECT id, categories from sites WHERE (categories LIKE '%social%' OR categories LIKE '%tech%' OR categories LIKE '%media%') AND  ( (categories LIKE '%sharing%')  OR  categories LIKE '%messageboard%' OR categories LIKE '%blogsandpersonal%') AND NOT categories LIKE '%news%'",conn)
-    #SQLcategoryFilter="adult"
-    #SQLcategoryFilter=SQLcategoryFilter
-    #print('joimn1 start sql',SQLcategoryFilter)
-    sites = pd.read_sql_query("SELECT id, categories from sites WHERE categories LIKE '%"+str(SQLcategoryFilter)+"%'",conn)
-    
-    #temp
-    
-    
-    #SQLcategoryFilter="adult"
-    
-    #print('rows after\n\n',result.shape)
-    
-    #sites = pd.read_sql_query("SELECT id, categories from sites WHERE (categories LIKE '%tech%' OR categories LIKE '%media%') AND ( (categories LIKE '%sharing%' AND  categories LIKE '%media%')) OR  (categories LIKE '%education%' AND  categories LIKE '%tech%')-- OR  categories LIKE '%messageboard%' OR categories LIKE '%blogsandpersonal%')", conn)#maybe requery and do .unique and rederfine categories
-   #category selector
-#   and ( (categories LIKE '%sharing%' and  categories LIKE '%media%')) or  (categories LIKE '%education%' and   categories LIKE '%tech%')
- #  or  categories LIKE '%messageboard%') or  categories LIKE '%blogsandpersonal%')))
-  # //those that have sharing and media or education and tech? or messageboardsand forums or 'blogsandpersonal;business;newsandmedia' 
-
-
-   
-    #print('sites\n',sites)
-    
-    #sites[['id','categories']].groupby(['categories']).agg(['count']).sort(['count'])
-    #df.set_index(['count'])
-    #print(df.index)
-    print('categories\n',sites['categories'].unique())#all categories that contaiin tech or media?
-    print('sites table imported')
-    print( sites.head())
-    
-    policy_snapshots = pd.read_sql_query("SELECT id, year, policy_url, phase, policy_text_id, site_id,  classifier_probability from policy_snapshots", conn)
-    #del result['policy_html_id']
-    print('homepage url',policy_snapshots)
-    #del result['policy_reader_view_html_id']
-    #del result['site_id']
-    print('policy_snapshots table imported\n',policy_snapshots.head())
-    
-    result = pd.merge(sites, policy_snapshots, how="inner", on=["id", "id"])
-    
-    print('merge1 result all columns\n',result.columns)
-    del result['id']
-    #del result['id_x']
-    print('merge1 result\n',result.columns)
-    print('join 1 end sql',SQLcategoryFilter)
-    join2_result_policy_texts(conn,result,SQLcategoryFilter,level)
-def UpdatedPrivacyPolicyClassifierColumnInJoin2(result):
-    print('rows first\n\n',(result.shape))
-    #result.groupby(result.year)['flesch_kincaid'].transform('mean')
-    print('start test')
-#    del result['flesch_ease']
- #   del result['flesch_kincaid']
-  #  del result['smog']
-   # del result['length']
-   # del result['phase']
-   # del result['policy_text_id']
-    
-    print('start test')
-    #break into 2 df
-    #join with year-1
-    #similarity to year before using other code
-    result2=result
-    result['join_condition']=str(result['year'])+str(result['phase'])+str(result['categories'])+str(result['id'])
-    
-    
-    result2['join_condition year-1']=str(result2['year']-1)+str(result2['phase'])+str(result2['categories'])+str(result2['id'])#possibly do if else that makes 1 phase before
-    result2['LastYearPrivacyPolicy']=result2['policy_text']#RENAME INSTEAD?
-    
-    
-    del result2['policy_text']
-    del result2['categories']
-    del result2['id']
-    del result2['flesch_ease']
-    del result2['flesch_kincaid']
-    del result2['smog']
-    del result2['length']
-    del result2['phase']
-    #del result2['policy_text_id']
-    del result2['site_id']
-    del result2['classifier_probability']
-    del result2['year']
-    print('result2 columns', result2.columns)
-    
-
-    #    TempComparison=pd.dataframe()
- #   TempComparison['year-1']=result['year']-1
-    
-  #  TempComparison['policy_text year-1']=result['policy_text']
-   # TempComparison['join_condition_year_before']=str(TempComparison['year'])+str(TempComparison['categories'])+str(TempComparison['id'])
-    #print(TempComparison)
-    result = pd.merge(result, result2, how="inner", on=["join_condition", "join_condition year-1"])
-    result2=0
-    del result['join_condition']
-    print('rows after\n\n',result.shape)
-    print('column after\n\n',result.column)
-    #test count of rows in each join type?
-    print('results analysis done',result)
-    #del result['year-1']
-    
-    
-    
-    
-    #result
-
-def join2_result_policy_texts(conn,result,SQLcategoryFilter,level):
-    #flesch_kincaid, smog,
-    policy_texts = pd.read_sql_query("SELECT id, policy_text,    length from policy_texts", conn)
-    
-    #homepage_snapshot_redirected_url
-
-    print(policy_texts.columns)
-    print('policy_texts table imported\n',policy_texts.head())
-    
-    result = pd.merge(policy_texts, result, on=None, left_on="id", right_on="policy_text_id",  how="inner")# on=["id","policy_text_id"])
-    del result['id']
-    #memory error workaround
-    policy_texts = pd.read_sql_query("SELECT id, flesch_ease, flesch_kincaid , smog from policy_texts", conn)
-    print(policy_texts.columns)
-    print('policy_texts table imported\n',policy_texts.head())
-    
-    result = pd.merge(policy_texts, result, on=None, left_on="id", right_on="policy_text_id",  how="inner")# on=["id","policy_text_id"])
-   
-    print('merge 2 all columns\n',result.columns)
-    #print('unique flesch_ease scores',result['flesch_ease'].unique())
-    #print(result.columns)
-    del result['policy_text_id']
-    
-    
-    
-    #result=UpdatedPrivacyPolicyClassifierColumnInJoin2(result)
-    
-    
-    
-    
-    # del result['id']
-    print('merge 2\n',result.columns)
-    print(result.head())
-    #del result['']
-    #del result['']
-    #return(result)
-    print('join 2 sql',SQLcategoryFilter)
-    join3_result_alexa_ranks(conn,result,SQLcategoryFilter,level)
-def join3_result_alexa_ranks(conn,result,SQLcategoryFilter,level):
-    alexa_ranks = pd.read_sql_query("SELECT site_id, rank from alexa_ranks", conn)
-    print(alexa_ranks.rank)
-    print('alexa_ranks table imported\n', alexa_ranks.head())
-    
-    result = pd.merge(alexa_ranks, result, on=None, left_on="site_id", right_on="site_id",  how="inner")
-    print('join 3 sql',SQLcategoryFilter)
-    MainCode(result,SQLcategoryFilter,level)
-    #return(result)
-    
-    
-
-    
-    
-
 
 def DatabaseInterrogation():
     database = r"C:\Users\layto\sqlite\db"#.xz?
@@ -325,98 +173,148 @@ def DatabaseInterrogationLoop(i,SQLRUN,StartIndex,conn):
                         print(error)
                        # DatabaseInterrogationLoop(SQLRUN,i[0],conn)#recall when error
                  
-
-     #result['child'
-                        
-            
+ 
 
 
-     #result['child'                    
-            #join1_sites__policy_snapshots(conn,i[3],level)
-     #   for i in range( len(SQLRUN)) :
-      #      print(i)
-       #     print(SQLRUN.loc[i,'categoriescountsemicolon'])#, df.loc[i, "Age"])
-        ###    print('row',i)
-           # print('QUERY ',x,'\n\n\n\n\n\n\n\n\n\n',x)
-            #join1_sites__policy_snapshots(conn,x)#pass levels through
-            
-            #print(SQlcategoryQueries.loc[i])#, df.loc[i, "Age"])
-        
-        #join1_sites__policy_snapshots(conn,SQLcategoryFilter)##3rd function called
-        #return result, SQLcategoryFilter 
-
-
-
-        
-
-
-
-
-
-
-
-
-'''def make_folder(SQLcategoryFilter,level):
-    # Directory
-    #directory = SQLcategoryFilter
-  
-# Parent Directory path
-    #path = "C:/Users/layto/OneDrive/Documents/GitHub/Group-6-technica-lcode/"+SQLcategoryFilter
-#"D:/Pycharm projects/  
-
-    #path = 
+def join1_sites__policy_snapshots(conn,SQLcategoryFilter,level):
+    #sites = pd.read_sql_query("SELECT id, categories from sites WHERE (categories LIKE '%social%' OR categories LIKE '%tech%' OR categories LIKE '%media%') AND  ( (categories LIKE '%sharing%')  OR  categories LIKE '%messageboard%' OR categories LIKE '%blogsandpersonal%') AND NOT categories LIKE '%news%'",conn)
+    #SQLcategoryFilter="adult"
+    #SQLcategoryFilter=SQLcategoryFilter
+    #print('joimn1 start sql',SQLcategoryFilter)
+    sites = pd.read_sql_query("SELECT id, categories from sites WHERE categories LIKE '%"+str(SQLcategoryFilter)+"%'",conn)
     
-# Create the directory 
-# 'GeeksForGeeks' in 
-# '/home / User / Documents' 
-    global path 
-    mycodelocationpath= os.path.abspath(os.path.dirname(__file__))
+    #temp
     
-    print('mycodelocationpath'+str(mycodelocationpath))#"C:/Users/layto/OneDrive/Documents/GitHub/Group-6-technica-lcode/"+
-    path=mycodelocationpath+'\ '+str(level)
+    
+    #SQLcategoryFilter="adult"
+    
+    #print('rows after\n\n',result.shape)
+    
+    #sites = pd.read_sql_query("SELECT id, categories from sites WHERE (categories LIKE '%tech%' OR categories LIKE '%media%') AND ( (categories LIKE '%sharing%' AND  categories LIKE '%media%')) OR  (categories LIKE '%education%' AND  categories LIKE '%tech%')-- OR  categories LIKE '%messageboard%' OR categories LIKE '%blogsandpersonal%')", conn)#maybe requery and do .unique and rederfine categories
+   #category selector
+#   and ( (categories LIKE '%sharing%' and  categories LIKE '%media%')) or  (categories LIKE '%education%' and   categories LIKE '%tech%')
+ #  or  categories LIKE '%messageboard%') or  categories LIKE '%blogsandpersonal%')))
+  # //those that have sharing and media or education and tech? or messageboardsand forums or 'blogsandpersonal;business;newsandmedia' 
 
-    try: 
-        os.mkdir(path) 
-    except OSError as error: 
-        print(error)  
-    print('code continued')
-    path=mycodelocationpath+'\ '+str(level)+'\ '+str(SQLcategoryFilter)
 
-    try: 
-        os.mkdir(path) 
-    except OSError as error: 
-        print(error)  
-    print('code continued')'''
    
+    #print('sites\n',sites)
     
+    #sites[['id','categories']].groupby(['categories']).agg(['count']).sort(['count'])
+    #df.set_index(['count'])
+    #print(df.index)
+    print('categories\n',sites['categories'].unique())#all categories that contaiin tech or media?
+    print('sites table imported')
+    print( sites.head())
+    
+    policy_snapshots = pd.read_sql_query("SELECT id, year, policy_url, phase, policy_text_id, site_id,  classifier_probability from policy_snapshots", conn)
+    #del result['policy_html_id']
+    print('homepage url',policy_snapshots)
+    #del result['policy_reader_view_html_id']
+    #del result['site_id']
+    print('policy_snapshots table imported\n',policy_snapshots.head())
+    
+    result = pd.merge(sites, policy_snapshots, how="inner", on=["id", "id"])
+    
+    print('merge1 result all columns\n',result.columns)
+    del result['id']
+    #del result['id_x']
+    print('merge1 result\n',result.columns)
+    print('join 1 end sql',SQLcategoryFilter)
+    join2_result_policy_texts(conn,result,SQLcategoryFilter,level)
+'''def UpdatedPrivacyPolicyClassifierColumnInJoin2(result):
+    print('rows first\n\n',(result.shape))
+    #result.groupby(result.year)['flesch_kincaid'].transform('mean')
+    print('start test')
+#    del result['flesch_ease']
+ #   del result['flesch_kincaid']
+  #  del result['smog']
+   # del result['length']
+   # del result['phase']
+   # del result['policy_text_id']
+    
+    print('start test')
+    #break into 2 df
+    #join with year-1
+    #similarity to year before using other code
+    result2=result
+    result['join_condition']=str(result['year'])+str(result['phase'])+str(result['categories'])+str(result['id'])
+    
+    
+    result2['join_condition year-1']=str(result2['year']-1)+str(result2['phase'])+str(result2['categories'])+str(result2['id'])#possibly do if else that makes 1 phase before
+    result2['LastYearPrivacyPolicy']=result2['policy_text']#RENAME INSTEAD?
+    
+    
+    del result2['policy_text']
+    del result2['categories']
+    del result2['id']
+    del result2['flesch_ease']
+    del result2['flesch_kincaid']
+    del result2['smog']
+    del result2['length']
+    del result2['phase']
+    #del result2['policy_text_id']
+    del result2['site_id']
+    del result2['classifier_probability']
+    del result2['year']
+    print('result2 columns', result2.columns)
+    
+    result = pd.merge(result, result2, how="inner", on=["join_condition", "join_condition year-1"])
+    result2=0
+    del result['join_condition']
+    print('rows after\n\n',result.shape)
+    print('column after\n\n',result.column)
+    #test count of rows in each join type?
+    print('results analysis done',result)
+    #del result['year-1'] 
+    #result
+'''
+def join2_result_policy_texts(conn,result,SQLcategoryFilter,level):
+    #flesch_kincaid, smog,
+    policy_texts = pd.read_sql_query("SELECT id, policy_text,    length from policy_texts", conn)
+    
+    #homepage_snapshot_redirected_url
+
+    print(policy_texts.columns)
+    print('policy_texts table imported\n',policy_texts.head())
+    
+    result = pd.merge(policy_texts, result, on=None, left_on="id", right_on="policy_text_id",  how="inner")# on=["id","policy_text_id"])
+    del result['id']
+    #memory error workaround
+    policy_texts = pd.read_sql_query("SELECT id, flesch_ease, flesch_kincaid , smog from policy_texts", conn)
+    print(policy_texts.columns)
+    print('policy_texts table imported\n',policy_texts.head())
+    
+    result = pd.merge(policy_texts, result, on=None, left_on="id", right_on="policy_text_id",  how="inner")# on=["id","policy_text_id"])
+   
+    print('merge 2 all columns\n',result.columns)
+    #print('unique flesch_ease scores',result['flesch_ease'].unique())
+    #print(result.columns)
+    del result['policy_text_id']
+    
+    
+    
+    #result=UpdatedPrivacyPolicyClassifierColumnInJoin2(result)
+    
+    # del result['id']
+    print('merge 2\n',result.columns)
+    print(result.head())
+    #del result['']
+    #del result['']
+    #return(result)
+    print('join 2 sql',SQLcategoryFilter)
+    join3_result_alexa_ranks(conn,result,SQLcategoryFilter,level)
+def join3_result_alexa_ranks(conn,result,SQLcategoryFilter,level):
+    alexa_ranks = pd.read_sql_query("SELECT site_id, rank from alexa_ranks", conn)
+    print(alexa_ranks.rank)
+    print('alexa_ranks table imported\n', alexa_ranks.head())
+    
+    result = pd.merge(alexa_ranks, result, on=None, left_on="site_id", right_on="site_id",  how="inner")
+    print('join 3 sql',SQLcategoryFilter)
+    MainCode(result,SQLcategoryFilter,level)
+    #return(result)   
 
 def MainCode(result,SQLcategoryFilter,level):
-     """
-     Query all rows in the tasks table
-     :param conn: the Connection object
-     :return:
-     """
-     #print('MAINCODE SQL\n\n\n\n\n\n',SQLcategoryFilter)
-     
-     
-     
-     #make_folder(SQLcategoryFilter,level)
-     '''   global path 
-     mycodelocationpath= os.path.abspath(os.path.dirname(__file__))
-    
-     print('mycodelocationpath'+str(mycodelocationpath))#"C:/Users/layto/OneDrive/Documents/GitHub/Group-6-technica-lcode/"+
-     path=mycodelocationpath+'\ '+str(level)
-
-     try: 
-         os.mkdir(path) 
-     except OSError as error: 
-         print(error)  
-     print('code continued')
-     path=mycodelocationpath+'\ '+str(level)+'\ '+str(SQLcategoryFilter)
-
-     try: 
-         os.mkdir(path) 
-         print('code continued')'''
 
      #result['child']= re.findall('child[^, ]+',result['policy_text'])
      columns=result.columns
@@ -467,13 +365,6 @@ def MainCode(result,SQLcategoryFilter,level):
      #save in Excel
      
      print('now make df')
-   #  df = pd.DataFrame(my_array, columns = ['SQLsearchHistorical','categories_included_in_search','level','rows','flesch_kincaid_max','flesch_kincaid_min',
-    #                                        'smog_max','smog_min','child_synonyms_max','child_synonyms_min',
-     #                                       'GDPR max','GDPR min','length max','length min'
-      #                                      ])
-     #print(df)
-     #order=np.array([categories historicalflesch_ease,flesch_kincaid,smog,nlp,nlpGDPR,length])#just write max and min
-     #df.to_csv('SQL category run summary.csv', mode='w', index=False, header=False)    
      uniquecategories=''
      uniquecategories=''
      for x in result['categories'].unique():
@@ -510,12 +401,7 @@ def MainCode(result,SQLcategoryFilter,level):
      SQLrunSummary.to_csv(path+"\."+'SQL category run summary.csv', mode='w', index=False)
          #path+"\."
      #result.to_csv('Categories lookup.csv', mode='a', index=False, header=False)
-     #write first time then changeto append
-     #pass levels through then set up folder saving structure
-     #way to append SQLsummary too?3
- #    except OSError as error: #if folder e.g. /1/games made then assumes graphs are made and doesn't create
-  #       print(error)  
-     
+
      
      ##now make a loop to make all possible graphs against year
 def flesch_scores(result, SQLcategoryFilter):
@@ -595,10 +481,7 @@ def makebarchart(x,y,xlabel,ylabel,SQLcategoryfilter):
    plt.show()
    print(titlelabel+' Graph created')
 
-#if __name__ == '__main__':
- #   MainCode(result,SQLcategoryFilter)
-    #create_connection(\"C:\\Users\\layto\\sqlite\")#
-    
+
     
 #move joins into one SQL statement
 if __name__ == '__main__':
