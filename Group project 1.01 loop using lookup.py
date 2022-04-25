@@ -487,14 +487,18 @@ def MainCode(result,SQLcategoryFilter,level):
       'rows':[result.groupby(result.year)['categories'].transform('count').sum()],#possibly remove grouby year
       'flesch_kincaid_max':[flesch_kincaidyear.max()],#line chart approach
       'flesch_kincaid_min':[flesch_kincaidyear.min()],
+      'flesch_kincaid_mean':[flesch_kincaidyear.mean()],
       'smog_max':[smogyear.max()],
       'smog_min':[smogyear.min()],
+      'smog_mean':[smogyear.mean()],
       'child_synonyms_max':[nlpyear.max()],
       'child_synonyms_min':[nlpyear.min()],
+      'child_synonyms_mean':[nlpyear.mean()],
       #'GDPR max':[nlpGDPRyear.max()],
       #'GDPR min':[nlpGDPRyear.min()],
       'length max':[lengthyear.max()],
-      'length min':[lengthyear.min()]     
+      'length min':[lengthyear.min()],
+      'length mean':[lengthyear.mean()] 
      
       }
 #my_array = np.array(arr)#maybe change to max of by year mean?                   
