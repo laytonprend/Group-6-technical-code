@@ -419,7 +419,7 @@ def flesch_scores(result, SQLcategoryFilter):
 
      result['contain_fairly_difficult']=result.flesch_ease.str.count("fairly_difficult")
      print(result['contain_fairly_difficult'].head())
-     #print(result['contain_fairly_difficult'].head())
+    
      makebarchart(result['year'],result.groupby(result.year)['contain_fairly_difficult'].transform('mean')*100,'Year',
                  'Mean percentage of privacy policies that are fairly difficult to read (The third most difficult measurement on scale)',SQLcategoryFilter)
   
@@ -432,13 +432,6 @@ def flesch_scores(result, SQLcategoryFilter):
      print(result['contain_easy'].head())
      makebarchart(result['year'],result.groupby(result.year)['contain_easy'].transform('mean')*100,'Year',
                   'Mean percentage of privacy policies that are easy or fairly_easy in difficulty to read (The fifth and sixth (lowest 2) most difficult measurement on scale)',SQLcategoryFilter)
-#     ''' 
-#     result['contain_confusing|difficult|fairly_difficult']=result.flesch_ease.str.count("confusing")+result.flesch_ease.str.count("difficult")
-#     print(result['contain_confusing|difficult|fairly_difficult'].head())
-#     makebarchart(result['year'],result.groupby(result.year)['contain_confusing|difficult|fairly_difficult'].transform('mean')*100,'Year',
-##                  'Mean percentage of privacy policies that contain confusing|difficult|fairly_difficult in difficulty to read (The fourth most difficult measurement on scale)',SQLcategoryFilter)
-#'''
-     #del result['contain_confusing|difficult|fairly_difficult']
      del result['contain_fairly_difficult']
      del result['contain_standard']
      del result['contain_easy']
@@ -482,10 +475,9 @@ def makebarchart(x,y,xlabel,ylabel,SQLcategoryfilter):
    print(titlelabel+' Graph created')
 
 
-    
-#move joins into one SQL statement
+
 if __name__ == '__main__':
     
-   # result, SQLcategoryFilter=
+
     DatabaseInterrogation()   #start
     print('Database processing complete')
