@@ -1,0 +1,4 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean
+1.0,1,1.0,9526.0,11.28079627,14.06817629
+0.5,4,0.5,5438.0,10.61484845,14.06817629
+0.5,2,0.5,5438.0,10.61484845,14.06817629
