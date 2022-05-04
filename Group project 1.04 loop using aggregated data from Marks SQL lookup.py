@@ -24,6 +24,7 @@ import numpy as np
 
 import csv
 from csv import writer
+from sklearn.utils import shuffle
 
 
 import matplotlib.pyplot as plt
@@ -49,7 +50,7 @@ def MainCode(result,SQLquery,CorrectionRequired):
       
      mycodelocationpath= os.path.abspath(os.path.dirname(__file__))#+'\ Individual categories'
     
-     print('mycodelocationpath'+str(mycodelocationpath))#"C:/Users/layto/OneDrive/Documents/GitHub/Group-6-technica-lcode/"+
+     #print('mycodelocationpath'+str(mycodelocationpath))#"C:/Users/layto/OneDrive/Documents/GitHub/Group-6-technica-lcode/"+
      path=mycodelocationpath+'\ '+str(level)
 #os.path.abspath(os.path.dirname(__file__)),os.path.abspath(os.path.dirname(__file__)),SQLquery+\ Individual categories'
      MakeFolder(path)
@@ -195,12 +196,12 @@ File['smog_Sum']=File['total']*File['smog_Mean']#sum smog
 #print(File.head())
 #print(File.tail())
 #print(File.columns)
-columns=File['Categories'].unique()
+columns=shuffle(File['Categories'].unique())
 num=0
 for i in columns:
     i= str(i)
-    num=+1
-    print(num,' times ran')
+    num+=1
+    print(num,' times ran\n')
     #TempFile=File
    # if not pd.isnull(i):
     print(i)
