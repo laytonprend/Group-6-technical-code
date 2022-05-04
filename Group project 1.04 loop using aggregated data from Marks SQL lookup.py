@@ -110,7 +110,7 @@ def MainCode(result,SQLquery,CorrectionRequired):
      #smogyear=result.groupby(result.year)['smog_Mean'].transform('mean')
      makebarchart(GroupedDF['year'],GroupedDF['smog_Mean'],'Year',
                 'Mean smog',SQLquery)#years of education needed to read
-     GroupedDF.to_csv(mycodelocationpath+'\RanData.csv', index=False)
+    # GroupedDF.to_csv(mycodelocationpath+'\RanData.csv', index=False)
      return GroupedDF
      
 
@@ -196,12 +196,14 @@ File['smog_Sum']=File['total']*File['smog_Mean']#sum smog
 #print(File.head())
 #print(File.tail())
 #print(File.columns)
-columns=shuffle(File['Categories'].unique())
-num=0
-for i in columns:
+Categories=shuffle(File['Categories'].unique())
+TimesRan=0
+Head=True
+CentralDF=pd.DataFrame()
+for i in Categories:
     i= str(i)
-    num+=1
-    print(num,' times ran\n')
+    TimesRan+=1
+    print(TimesRan,' times ran\n')
     #TempFile=File
    # if not pd.isnull(i):
     print(i)
@@ -209,9 +211,16 @@ for i in columns:
     Filter= Filter.fillna(False)#nulls are false
     #print(Filter)
     TempFile=File[Filter]
+    UniqueCategories=TempFile['Categories'].unique()
+    CategoriesInWildcard=''
+    for x in UniqueCategories:
+        CategoriesInWildcard+=str(x)+' - '#InWildcarnt(CategoriesInWildcard)
+    print(CategoriesInWildcard)
+        
     
     global savepath
     savepath=os.path.abspath(os.path.dirname(__file__))+'\ '+str(i.count(';'))+'\ '+i+'\ Category Wildcard Match'
+    
     
     try:
         RanData1=MainCode(TempFile,i,True)
@@ -229,33 +238,18 @@ for i in columns:
     except MemoryError as error:
             # Output expected MemoryErrors
             print('error')
-    '''try:
-        with open('RanData.csv', 'a') as f_object:
-  
-    # Pass this file object to csv.writer()
-    # and get a writer object
-            writer_object = writer(f_object)
-  
-    # Pass the list as an argument into
-    # the writerow()
-            for x in RanData1.iterrows():
-                #print(x.dtype())
-                row=(x.year,x.GroupedRows,x.ChildCountMean,x.lengthMean,x.flesch_kincaid_Mean,x.smog_Mean,'WildCard Match')#declare new tuple to add type of search
-                writer_object.writerow(row)
-                print('run',x,'\n\n',row)
-            for y in RanData1.iterrows():
-                row=y+('Exact Match',)
-                writer_object.writerow(row)
-   
-    #Close the file object
-            f_object.close()
-    except MemoryError as error:
-        print(error)
-        '''
-    
-    '''
-if __name__ == '__main__':
-    
+    RanData1['Category Search']=i
+    RanData1['Categories returned']=CategoriesInWildcard
+    RanData1['Wildcard Search?']=True
+    RanData1['Categories returned']=i
+    RanData2['Category search']=i
+    RanData2['Wildcard Search?']=False
+    CentralDF.append(RanData1)
+    CentralDF.append(RanData2)
+    print(CentralDF)
+    #print(RanData2)
+CentralDF.to_csv('RanData.csv', mode='w', header=Head,index=False)
 
-    MainCode()   #start
-    print('Database processing complete')'''
+#    except MemoryError as error:
+ #       print(error)
+     
