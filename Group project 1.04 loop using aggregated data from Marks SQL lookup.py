@@ -23,6 +23,7 @@ import numpy as np
 #import traceback
 
 import csv
+from csv import writer
 
 
 import matplotlib.pyplot as plt
@@ -44,7 +45,7 @@ def MainCode(result,SQLquery,CorrectionRequired):
      level=str(SQLquery.count(';'))
    #  global path
     # path= os.path.abspath(os.path.dirname(__file__))#temp
-     print(11)  
+     #print(11)  
       
      mycodelocationpath= os.path.abspath(os.path.dirname(__file__))#+'\ Individual categories'
     
@@ -53,11 +54,6 @@ def MainCode(result,SQLquery,CorrectionRequired):
 #os.path.abspath(os.path.dirname(__file__)),os.path.abspath(os.path.dirname(__file__)),SQLquery+\ Individual categories'
      MakeFolder(path)
     
- #    try: 
-  #       os.mkdir(path) 
-   #  except OSError as error: 
-    #     print(error)  
-     #    print('code continued, level folder')
      folderpath=mycodelocationpath+'\ '+str(level)+'\ '+str(SQLquery)
      MakeFolder(folderpath)
      
@@ -65,15 +61,8 @@ def MainCode(result,SQLquery,CorrectionRequired):
      MakeFolder(savepath)
      GroupedDF=pd.DataFrame()
      if CorrectionRequired==True:#need to correct aggregations
-         #MakeFolder(savepath)#(folderpath+'\ Category Wildcard Match')
-         
-         #GroupedDF={'year':result.groupby(result.year)['ChildCount'],'GroupedRows':GroupedRows,'nlpCount':result.groupby(result.year)['ChildCountSum'].transform('sum')/GroupedRows}
-     #    print('year\n',result.groupby(result.year)['year'].transform('mean'))
-      #   print('GroupedRows',GroupedRows)
-       #  print('nlpCountMean',result.groupby(result.year)['ChildCountSum'].transform('sum')/GroupedRows)
-        # print('lengthMean',result.groupby(result.year)['lengthSum'].transform('sum')/GroupedRows)
-         #print('flesch_kincaid_Mean',result.groupby(result.year)['flesch_kincaid_Sum'].transform('sum')/GroupedRows)
-         #print('smog_Mean',result.groupby(result.year)['smog_Sum'].transform('sum')/GroupedRows)
+     #prev 'year':result.groupby(result.year)['year'].transform('mean')
+         #print('newyear\n',result.groupby('year').aggregate(lambda tdf: tdf.unique()))
          GroupedDF={'year':result.groupby(result.year)['year'].transform('mean'),'GroupedRows':GroupedRows,
                     'ChildCountMean':result.groupby(result.year)['ChildCountSum'].transform('sum')/GroupedRows
                     ,'lengthMean':result.groupby(result.year)['lengthSum'].transform('sum')/GroupedRows
@@ -81,122 +70,34 @@ def MainCode(result,SQLquery,CorrectionRequired):
                     ,'smog_Mean':result.groupby(result.year)['smog_Sum'].transform('sum')/GroupedRows
                     }
          
-      #   GroupedDF['year']=result.groupby(result.year)['ChildCount']
-       #  GroupedDF['GroupedData']=GroupedRows
-       #  ={'year':result.groupby(result.year)['ChildCount'],'GroupedRows':GroupedRows,
-        #   'nlpCount':result.groupby(result.year)['ChildCountSum'].transform('sum')/GroupedRows}
-         
-         #print('GroupedDF\n',GroupedDF)#GroupedDF=pd.Dataframe(GroupedDF)
-         #{ 'Author': auth_series, 'Article': article_series }
-         #result = pd.DataFrame(frame)
-         
-         
-         #nlpyear=result.groupby(result.year)['ChildCountSum'].transform('sum')
-    #     lengthyear=result.groupby(result.year)['lengthSum'].transform('sum')
-     #    flesch_kincaidyear=result.groupby(result.year)['flesch_kincaid_Sum'].transform('sum')
-      #   smogyear=result.groupby(result.year)['smog_Sum'].transform('sum')
-        #create sum fields
-         #result['ChildCountSum']=result['total']*ChilsCount
-         
-         #ChildCountSum too
-         #GroupedRows=#toal is rows
-        
-     
-         '''
-         File['ChildCountSum']=File['ChildCount']
-File['ChildCount']=File['ChildCount']/File['total']#childcount is sum
-#sum total,
-File['LengthSum']=File['total']*File['length_Mean']#sum length
-File['flesch_kincaid_Sum']=File['total']*File['flesch_kincaid_Mean']#sum flesch kincaid
-File['smog_Sum']=File['total']*File['smog_Mean']#sum smog
-print(File.head())
-         
-         
-         #sum total,
-result['LengthSum']=result['total']*result['length_Mean']#sum length
-result['flesch_kincaid_Sum']=result['total']*result['flesch_kincaid_Mean']#sum flesch kincaid
-result['smog_Sum']=result['total']*result['smog_Mean']#sum smog
-print(File.head())
-         
-         
-        
-         #get sum by aggregation
-         print(result.dtypes) 
-         result['sumChildCount']=result['ChildCount'].mul(result['total'])
-         result['sumChildCount']=result.groupby(['Categories','year'])['sumChildCount'].transform('sum')
-         print(result['sumChildCount'])#sum created
-         nlpyear=result['sumChildCount']/result.groupby(['Categories','year'])['total'].transform('sum')
-         print(nlpyear,'\n 1')
-         #result['numrows']=result.groupby(['Categories','year'])['total']
-        # print(result['childcountgroup'])
-         
-        # nlpcatyear=np.multiply(childcountgroup,numrows)#df.groupby(['col5', 'col2']
-         #nlpcatyear=numrows.mul(childcountgroup)
-         #nlpcatyear=numrows*childcountgroup
-     #    groupresult=result.groupby(['year','Categories'])
-      #   xx = groupresult.apply(
-       #  lambda x: x.assign(childcountgroup = x.childcountgroup*float(x.numrows)))\
-      #                .reset_index(['year','Categories'], drop = True)
-         #nlpyear=nlpcatyear/result.groupby(result.year)['total'].transform('sum')
-         
-         
-         '''
-         
+    
    #      lengthyear=result.groupby(result.year)['length_Mean'].transform('sum')/result.groupby(result.year)['total'].transform('sum')
     #     flesch_kincaidyear=result.groupby(result.year)['flesch_kincaid_Mean'].transform('sum')/result.groupby(result.year)['total'].transform('sum')
      #    smogyear=result.groupby(result.year)['smog_Mean'].transform('sum')
          
      else:#if CorrectionRequired==False:#doesn't matter if transform is mean etc.
-         GroupedDF={'year':result.groupby(result.year)['ChildCount'].transform('mean'),'GroupedRows':GroupedRows,
+         GroupedDF={'year':result.groupby(result.year)['year'].transform('mean'),'GroupedRows':GroupedRows,
                     'ChildCountMean':result.groupby(result.year)['ChildCount'].transform('mean')
                     ,'lengthMean':result.groupby(result.year)['length_Mean'].transform('mean')
                     ,'flesch_kincaid_Mean':result.groupby(result.year)['flesch_kincaid_Mean'].transform('mean')
                     ,'smog_Mean':result.groupby(result.year)['smog_Mean'].transform('mean')
                     }
      
-   #  with open('test4.csv', 'w') as csvfile:
-    #        writer = csv.DictWriter(csvfile, fieldnames = employee_info)
-     #       writer.writeheader()
-      #      writer.writerows(new_dict)
 
-        #pd.DataFrame(GroupedDF) 
-     #GroupedDF.to_csv(savepath+'\data.csv', index=False)
-         #(folderpath+'\ Exact Match')
-         #nlpyear=result.groupby(result.year)['ChildCount'].transform('mean')
-         #lengthyear=result.groupby(result.year)['length_Mean'].transform('mean')
-         #flesch_kincaidyear=result.groupby(result.year)['flesch_kincaid_Mean'].transform('mean')
-       #  smogyear=result.groupby(result.year)['smog_Mean'].transform('mean')
-
-    
-     
      
      GroupedDF=pd.DataFrame(GroupedDF)
      GroupedDF.drop_duplicates(inplace=True)
      GroupedDF.to_csv(savepath+'\Data.csv', index=False)
      
     
-     #print('nlp',result['nlp'])
-     #fieldnames.remove('year')
-     #SQLquery="when categories are related to gaming"
 
-    
-     #working hashed for efficiency
-     
-    # print(11)    
-   #  print(GroupedDF['year'].shape)
-    # print(GroupedDF[''].shape)
      makebarchart(GroupedDF["year"],GroupedDF['GroupedRows'],'Year','relevant samples that year',SQLquery)
      #result['nlp']=result['policy_text'].str.count("Parental|parental|guardian|Guardian|child|Child|Child's|child's|Minor|minor|underage|child|kid|young|youth|young people|under-18|under-13|under 13|under 18|under 12|13 years old|under 13 years old|under 18 years old|age of 13|under the age of 18")##here is where to adjust what words ar being checked, not earlier on so other graphs
          
      #nlpyear=result.groupby(result.year)['ChildCount'].transform('mean')# should be mean anyway
      makebarchart(GroupedDF["year"],GroupedDF['ChildCountMean'],'Year','Mean count of child synonyms',SQLquery)
      
-         #result['nlpGDPR']=result['policy_text'].str.count("GDPR")##here is where to adjust what words ar being checked, not earlier on so other graphs
-         
-         #nlpGDPRyear=result.groupby(result.year)['nlpGDPR'].transform('mean')
-         #makebarchart(result["year"],nlpGDPRyear,'Year','Mean count of GDPR',SQLquery)
-     #del result['nlpGDPR']
-    # lengthyear=result.groupby(result.year)['length_Mean'].transform('mean')
+
      makebarchart(GroupedDF['year'],GroupedDF['lengthMean'],'Year','Mean length',SQLquery)
 
 
@@ -208,11 +109,10 @@ print(File.head())
      #smogyear=result.groupby(result.year)['smog_Mean'].transform('mean')
      makebarchart(GroupedDF['year'],GroupedDF['smog_Mean'],'Year',
                 'Mean smog',SQLquery)#years of education needed to read
-          
+     GroupedDF.to_csv(mycodelocationpath+'\RanData.csv', index=False)
+     return GroupedDF
      
-     #flesch_scores(result, SQLquery)
-   
-     ##now make a loop to make all possible graphs against year
+
 def flesch_scores(result, SQLquery):
      result['contain_very_confusing']=result.flesch_ease.str.count("ery_confusing")
      print(result['contain_very_confusing'].head())
@@ -292,9 +192,9 @@ File['ChildCount']=File['ChildCount']/File['total']#childcount is sum
 File['lengthSum']=File['total']*File['length_Mean']#sum length
 File['flesch_kincaid_Sum']=File['total']*File['flesch_kincaid_Mean']#sum flesch kincaid
 File['smog_Sum']=File['total']*File['smog_Mean']#sum smog
-print(File.head())
-print(File.tail())
-print(File.columns)
+#print(File.head())
+#print(File.tail())
+#print(File.columns)
 columns=File['Categories'].unique()
 num=0
 for i in columns:
@@ -306,16 +206,17 @@ for i in columns:
     print(i)
     Filter=File['Categories'].str.contains(i)
     Filter= Filter.fillna(False)#nulls are false
-    print(Filter)
+    #print(Filter)
     TempFile=File[Filter]
     
     global savepath
     savepath=os.path.abspath(os.path.dirname(__file__))+'\ '+str(i.count(';'))+'\ '+i+'\ Category Wildcard Match'
+    
     try:
-        MainCode(TempFile,i,True)
+        RanData1=MainCode(TempFile,i,True)
     except MemoryError as error:
             # Output expected MemoryErrors
-            print('memory error')
+            print('error')
     
     Filter=File['Categories']==i
     #Filter=File['Categories'].count(i)>0
@@ -323,11 +224,33 @@ for i in columns:
     TempFile=File[Filter]
     savepath=os.path.abspath(os.path.dirname(__file__))+'\ '+str(i.count(';'))+'\ '+i+'\ Exact Match'
     try:
-        MainCode(TempFile,i,False)
+        RanData2=MainCode(TempFile,i,False)
     except MemoryError as error:
             # Output expected MemoryErrors
-            print('memory error')
-        
+            print('error')
+    '''try:
+        with open('RanData.csv', 'a') as f_object:
+  
+    # Pass this file object to csv.writer()
+    # and get a writer object
+            writer_object = writer(f_object)
+  
+    # Pass the list as an argument into
+    # the writerow()
+            for x in RanData1.iterrows():
+                #print(x.dtype())
+                row=(x.year,x.GroupedRows,x.ChildCountMean,x.lengthMean,x.flesch_kincaid_Mean,x.smog_Mean,'WildCard Match')#declare new tuple to add type of search
+                writer_object.writerow(row)
+                print('run',x,'\n\n',row)
+            for y in RanData1.iterrows():
+                row=y+('Exact Match',)
+                writer_object.writerow(row)
+   
+    #Close the file object
+            f_object.close()
+    except MemoryError as error:
+        print(error)
+        '''
     
     '''
 if __name__ == '__main__':
