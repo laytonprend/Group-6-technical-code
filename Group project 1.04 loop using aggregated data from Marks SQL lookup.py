@@ -39,8 +39,9 @@ def MakeFolder(path):
     try: #make folders going down to savepath
          os.mkdir(path) 
     except OSError as error: 
-         print(error)  
-         print('code continued')
+         #print(error)
+         t=error
+         #print('code continued')
 
 def MainCode(result,SQLquery,CorrectionRequired):
      level=str(SQLquery.count(';'))
@@ -182,7 +183,7 @@ def makebarchart(x,y,xlabel,ylabel,SQLquery):
   # savelabel=str(titlelabel)+str('.png')
    plt.savefig(savepath+"\."+savelabel)
    plt.show()
-   print(titlelabel+' Graph created')
+  # print(titlelabel+' Graph created')
    
    
    
@@ -203,10 +204,10 @@ CentralDF=pd.DataFrame()
 for i in Categories:
     i= str(i)
     TimesRan+=1
-    print(TimesRan,' times ran\n')
+    print(TimesRan,' times ran\n',i)
     #TempFile=File
    # if not pd.isnull(i):
-    print(i)
+    
     Filter=File['Categories'].str.contains(i)
     Filter= Filter.fillna(False)#nulls are false
     #print(Filter)
@@ -215,7 +216,7 @@ for i in Categories:
     CategoriesInWildcard=''
     for x in UniqueCategories:
         CategoriesInWildcard+=str(x)+' - '#InWildcarnt(CategoriesInWildcard)
-    print(CategoriesInWildcard)
+   # print(CategoriesInWildcard)
         
     
     global savepath
@@ -244,9 +245,13 @@ for i in Categories:
     RanData1['Categories returned']=i
     RanData2['Category search']=i
     RanData2['Wildcard Search?']=False
-    CentralDF.append(RanData1)
-    CentralDF.append(RanData2)
-    print(CentralDF)
+    #CentralDF.append(RanData1)
+    #CentralDF.append(RanData2)
+    frames=[CentralDF,RanData1,RanData2]
+    CentralDF=pd.concat(frames)
+  #  print(CentralDF)
+   # print(CentralDF.head())
+    #print(CentralDF.tail())
     #print(RanData2)
 CentralDF.to_csv('RanData.csv', mode='w', header=Head,index=False)
 
