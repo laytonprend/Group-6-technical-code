@@ -28,7 +28,7 @@ from sklearn.utils import shuffle
 
 
 import matplotlib.pyplot as plt
-#import seaborn as sns
+import seaborn as sns
 
 import os#make folder
 
@@ -84,8 +84,8 @@ def MainCode(result,SQLquery,CorrectionRequired):
                     ,'flesch_kincaid_Mean':result.groupby(result.year)['flesch_kincaid_Mean'].transform('mean')
                     ,'smog_Mean':result.groupby(result.year)['smog_Mean'].transform('mean')
                     }
-     
-
+     GroupedDF=pd.DataFrame(GroupedDF)
+     GroupedDF.sort_values(by=['year'], inplace=True)
      
      GroupedDF=pd.DataFrame(GroupedDF)
      GroupedDF.drop_duplicates(inplace=True)
@@ -112,9 +112,13 @@ def MainCode(result,SQLquery,CorrectionRequired):
      makebarchart(GroupedDF['year'],GroupedDF['smog_Mean'],'Year',
                 'Mean smog',SQLquery)#years of education needed to read
     # GroupedDF.to_csv(mycodelocationpath+'\RanData.csv', index=False)
+    
+     plt.figure(figsize=(10,8),dpi=80)
+     sns.pairplot(GroupedDF,kind='reg')#,lw=7)#linewidth=4)#,hue='species')
+     plt.show()#marginal distributions, histograms, so number of samples?
      return GroupedDF
      
-
+'''
 def flesch_scores(result, SQLquery):
      result['contain_very_confusing']=result.flesch_ease.str.count("ery_confusing")
      print(result['contain_very_confusing'].head())
@@ -152,16 +156,17 @@ def flesch_scores(result, SQLquery):
      makebarchart(result['year'],result.groupby(result.year)['contain_none'].transform('mean')*100,'Year',
                 'Mean percentage of privacy policies that are rated as none (Not Applicable) in difficulty to read',SQLquery)
      del result['contain_none']
- 
+ '''
                                                      
 def makebarchart(x,y,xlabel,ylabel,SQLquery):
     
    #savelabelSQLquery=SQLquery
    SQLquery='when categories are related to '+SQLquery 
    plt.rcParams["figure.figsize"] = (10,8)
-   plt.bar(x = x,
-   height = y,
-   color = "blue")
+  # plt.bar(x = x,
+   #height = y,
+   #color = "blue")
+   plt.plot(x,y,linewidth=7)
 
    titlelabel=str(SQLquery)+' '+str(ylabel)+' in privacy policies by '+str(xlabel)#area in brackets in main title but not axis
    ref=0
@@ -186,7 +191,7 @@ def makebarchart(x,y,xlabel,ylabel,SQLquery):
   # print(titlelabel+' Graph created')
    
    
-   
+plt.style.use('dark_background') 
 File=pd.read_csv('Categories Agg.csv')
 File['ChildCountSum']=File['ChildCount']
 File['ChildCount']=File['ChildCount']/File['total']#childcount is sum
