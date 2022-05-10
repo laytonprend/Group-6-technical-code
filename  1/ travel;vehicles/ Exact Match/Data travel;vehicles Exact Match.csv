@@ -1,0 +1,16 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2000,1,0.0,2573.0,12.70546879,,True,travel;vehicles
+2001,1,0.0,2573.0,12.70546879,,True,travel;vehicles
+2002,2,0.0,2578.5,12.705468795,,True,travel;vehicles
+2003,1,0.0,2578.0,12.70546879,,True,travel;vehicles
+2004,1,0.0,2616.0,12.70546879,,True,travel;vehicles
+2005,2,0.0,5101.0,12.270416665,14.216342085,True,travel;vehicles
+2006,1,3.0,9437.0,12.76993378,14.92929796,True,travel;vehicles
+2007,1,3.0,9435.0,12.81850828,14.92929796,True,travel;vehicles
+2008,2,3.0,9435.0,12.818508275,14.929297965,True,travel;vehicles
+2014,1,2.0,40409.0,13.695503,15.81774264,True,travel;vehicles
+2015,2,2.0,40409.0,13.695503,15.81774264,True,travel;vehicles
+2016,1,2.0,38892.0,13.60581988,15.33710201,True,travel;vehicles
+2017,1,2.0,38892.0,13.60581988,15.33710201,True,travel;vehicles
+2018,2,2.0,36893.0,14.71536878,15.99251355,True,travel;vehicles
+2019,1,2.0,34898.0,15.82985905,16.6881,True,travel;vehicles

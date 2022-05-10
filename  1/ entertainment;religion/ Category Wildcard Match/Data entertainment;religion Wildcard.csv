@@ -1,0 +1,21 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2000,2,60.0,17061.0,13.794495199999998,16.40432271,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 
+2001,2,33.0,12877.5,13.555648275,16.13243011,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 
+2002,2,6.0,8695.5,13.34861953,15.817670225,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 
+2003,4,3.0,8495.0,12.866551045,15.044415935,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 
+2004,4,3.0,8458.25,12.87248077,15.10455684,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 
+2005,4,3.0,8421.5,12.8784104925,15.1646977475,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 
+2006,4,4.25,8016.25,12.80507196,15.044113424999999,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 
+2007,4,6.0,10649.0,12.8412403675,14.956884850000002,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 
+2008,2,11.0,18872.5,13.63976485,15.31429327,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 
+2009,4,5.5,13666.0,13.005949982499999,14.87864522,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 
+2010,5,4.4,11977.6,13.602307632,15.615734272000001,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 
+2011,9,3.7777777777777777,8725.777777777777,13.611401895555556,10.740050281111111,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 
+2012,12,14.5,10602.583333333334,12.934417842499998,12.865028765833332,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 
+2013,11,17.636363636363637,14734.818181818182,12.746677823636363,15.007764658181816,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 
+2014,9,5.777777777777778,8673.555555555555,11.897901181111111,13.07183510777778,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 
+2015,11,6.363636363636363,9557.454545454546,12.039389145454544,14.611842083636363,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 
+2016,15,6.933333333333334,11646.0,12.276010662,13.734288161333334,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 
+2017,16,7.0,11859.8125,12.388725408124998,12.984010475000002,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 
+2018,13,8.615384615384615,14761.0,14.080899701538462,13.446831446153848,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 
+2019,15,7.933333333333334,15353.466666666667,14.888285409333331,15.04541499,False,blogsandpersonal;entertainment;religion - education;entertainment;religion - entertainment;religion - entertainment;religion;streamingmedia - 

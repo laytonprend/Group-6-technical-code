@@ -1,0 +1,16 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2004,2,0.0,4273.0,12.8647804,0.0,False,business;newsandmedia;travel - education;newsandmedia;travel - newsandmedia;travel - 
+2005,2,0.0,4273.0,12.8647804,0.0,False,business;newsandmedia;travel - education;newsandmedia;travel - newsandmedia;travel - 
+2006,2,0.0,4273.0,12.8647804,0.0,False,business;newsandmedia;travel - education;newsandmedia;travel - newsandmedia;travel - 
+2007,3,1.3333333333333333,7811.0,13.217638290000002,5.576052073333333,False,business;newsandmedia;travel - education;newsandmedia;travel - newsandmedia;travel - 
+2008,2,0.0,4273.0,12.8647804,0.0,False,business;newsandmedia;travel - education;newsandmedia;travel - newsandmedia;travel - 
+2009,2,0.0,4282.5,12.85585368,0.0,False,business;newsandmedia;travel - education;newsandmedia;travel - newsandmedia;travel - 
+2011,1,0.0,4290.0,12.84692696,0.0,False,business;newsandmedia;travel - education;newsandmedia;travel - newsandmedia;travel - 
+2012,3,1.3333333333333333,5320.0,12.525081890000001,4.656091316666667,False,business;newsandmedia;travel - education;newsandmedia;travel - newsandmedia;travel - 
+2013,4,2.0,5835.0,12.36415935,6.9841369775,False,business;newsandmedia;travel - education;newsandmedia;travel - newsandmedia;travel - 
+2014,7,2.5714285714285716,5455.142857142857,11.558264061428572,7.533645922857143,False,business;newsandmedia;travel - education;newsandmedia;travel - newsandmedia;travel - 
+2015,5,0.8,4780.6,11.851463562000001,5.567143238,False,business;newsandmedia;travel - education;newsandmedia;travel - newsandmedia;travel - 
+2016,6,0.0,4558.5,12.643858233333333,4.622480745,False,business;newsandmedia;travel - education;newsandmedia;travel - newsandmedia;travel - 
+2017,7,0.5714285714285714,6661.428571428572,12.909541801428572,6.516675448571428,False,business;newsandmedia;travel - education;newsandmedia;travel - newsandmedia;travel - 
+2018,2,0.0,4288.5,13.101842035,0.0,False,business;newsandmedia;travel - education;newsandmedia;travel - newsandmedia;travel - 
+2019,1,4.0,15499.0,13.37550395,15.20269789,False,business;newsandmedia;travel - education;newsandmedia;travel - newsandmedia;travel - 

@@ -1,0 +1,14 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2007,1,0.0,5964.0,15.15791991,16.19785254,True,business;entertainment;weapons
+2008,1,0.0,5962.0,15.151080300000002,16.19785254,True,business;entertainment;weapons
+2009,2,0.0,5962.0,15.151080305,16.19785254,True,business;entertainment;weapons
+2010,2,0.0,5894.0,14.663370925,15.73171695,True,business;entertainment;weapons
+2011,2,0.0,5894.0,14.663370925,15.73171695,True,business;entertainment;weapons
+2012,2,0.0,6306.0,15.044561735,16.129197265,True,business;entertainment;weapons
+2013,2,0.0,6699.0,15.419922485,16.52667758,True,business;entertainment;weapons
+2014,2,0.0,6657.0,15.36975204,16.445169935,True,business;entertainment;weapons
+2015,2,0.0,6615.5,15.14178295,16.342576145,True,business;entertainment;weapons
+2016,2,0.0,6570.0,14.92686589,16.28082958,True,business;entertainment;weapons
+2017,2,0.0,7533.5,15.455036655,16.48446479,True,business;entertainment;weapons
+2018,2,6.0,25980.0,19.312863045,17.916177095,True,business;entertainment;weapons
+2019,2,6.0,25906.0,18.72930742,18.345138545,True,business;entertainment;weapons

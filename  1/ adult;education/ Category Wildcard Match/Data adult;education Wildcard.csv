@@ -1,0 +1,16 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2004,2,0.0,1361.5,9.758737115,0.0,False,adult;education - adult;education;messageboardsandforums - 
+2006,1,0.0,5410.0,10.167098900000001,13.40145869,False,adult;education - adult;education;messageboardsandforums - 
+2007,1,0.0,5410.0,10.167098900000001,13.40145869,False,adult;education - adult;education;messageboardsandforums - 
+2008,2,4.5,5478.0,12.24588126,6.700729345,False,adult;education - adult;education;messageboardsandforums - 
+2009,4,4.5,5478.0,12.24588126,6.7007293425,False,adult;education - adult;education;messageboardsandforums - 
+2010,3,6.0,5430.333333333333,12.806118256666666,4.467152896666667,False,adult;education - adult;education;messageboardsandforums - 
+2011,2,9.0,5363.0,14.013685895,0.0,False,adult;education - adult;education;messageboardsandforums - 
+2012,2,9.0,5363.0,14.013685895,0.0,False,adult;education - adult;education;messageboardsandforums - 
+2013,2,9.0,5363.0,14.013685895,0.0,False,adult;education - adult;education;messageboardsandforums - 
+2014,5,3.6,4019.8,13.813021725999999,0.0,False,adult;education - adult;education;messageboardsandforums - 
+2015,3,3.0,4016.3333333333335,13.866550636666666,0.0,False,adult;education - adult;education;messageboardsandforums - 
+2016,4,4.5,4526.75,13.7967471425,0.0,False,adult;education - adult;education;messageboardsandforums - 
+2017,4,4.5,4674.5,13.7056733825,0.0,False,adult;education - adult;education;messageboardsandforums - 
+2018,4,4.5,4951.75,13.3932493525,0.0,False,adult;education - adult;education;messageboardsandforums - 
+2019,3,6.0,5009.666666666667,13.85204252,0.0,False,adult;education - adult;education;messageboardsandforums - 

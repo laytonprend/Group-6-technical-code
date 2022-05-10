@@ -1,0 +1,14 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2007,2,4.0,11554.0,14.73218288,16.19785254,True,mediasharing;streamingmedia
+2008,2,4.0,11554.0,14.73218288,16.19785254,True,mediasharing;streamingmedia
+2009,2,4.0,10393.0,14.19851613,15.20269789,True,mediasharing;streamingmedia
+2010,2,4.0,10441.0,14.25102163,15.20269789,True,mediasharing;streamingmedia
+2011,2,4.0,10125.5,14.321818585,15.042905475,True,mediasharing;streamingmedia
+2012,3,5.666666666666667,11708.666666666666,14.88488222,16.323162086666667,True,mediasharing;streamingmedia
+2013,2,4.0,10503.0,14.30352713,15.20269789,True,mediasharing;streamingmedia
+2014,2,4.0,12117.0,14.543956105,14.45857317,True,mediasharing;streamingmedia
+2015,2,4.0,14957.0,15.113689205,15.337102005,True,mediasharing;streamingmedia
+2016,2,4.0,15067.0,14.789130185,16.48601716,True,mediasharing;streamingmedia
+2017,3,2.6666666666666665,10916.0,14.35387566,10.990678106666666,True,mediasharing;streamingmedia
+2018,2,4.0,15755.5,14.762142985,16.80791676,True,mediasharing;streamingmedia
+2019,2,2.0,19427.0,14.692584,17.02322962,True,mediasharing;streamingmedia

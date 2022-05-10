@@ -1,0 +1,16 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2005,1,4.0,9679.0,14.94695804,15.77480295,False,illegalcontent;informationtech;mediasharing - 
+2006,2,4.0,9639.5,15.113491625,15.98806761,False,illegalcontent;informationtech;mediasharing - 
+2007,1,4.0,11527.0,14.42012049,15.47004243,False,illegalcontent;informationtech;mediasharing - 
+2008,2,4.0,11527.0,14.420120495,15.47004243,False,illegalcontent;informationtech;mediasharing - 
+2009,2,4.0,11519.0,14.420120495,15.47004243,False,illegalcontent;informationtech;mediasharing - 
+2010,2,4.0,11751.5,14.516553325,15.291150055,False,illegalcontent;informationtech;mediasharing - 
+2011,1,4.0,10874.0,14.59655485,15.5140388,False,illegalcontent;informationtech;mediasharing - 
+2012,2,2.0,10036.5,14.572652425,15.60126097,False,illegalcontent;informationtech;mediasharing - 
+2013,2,2.0,9838.0,14.561973865,15.35691182,False,illegalcontent;informationtech;mediasharing - 
+2014,6,3.0,5713.0,12.698352176666667,4.81952439,False,illegalcontent;informationtech;mediasharing - 
+2015,7,1.8571428571428572,8234.142857142857,12.935370655714285,8.673780482857143,False,illegalcontent;informationtech;mediasharing - 
+2016,6,1.3333333333333333,6892.5,12.914763241666668,5.495339053333333,False,illegalcontent;informationtech;mediasharing - 
+2017,4,1.0,5871.0,12.320576449999999,4.12150429,False,illegalcontent;informationtech;mediasharing - 
+2018,4,6.0,13137.75,13.98512446,12.05448338,False,illegalcontent;informationtech;mediasharing - 
+2019,7,5.714285714285714,13022.57142857143,13.250440771428572,13.437811077142857,False,illegalcontent;informationtech;mediasharing - 

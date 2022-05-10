@@ -1,0 +1,8 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2013,2,4.0,4376.0,11.883403265,0.0,False,drugs;foodandrecipes - drugs;foodandrecipes;shopping - 
+2014,2,4.0,4376.0,11.883403265,0.0,False,drugs;foodandrecipes - drugs;foodandrecipes;shopping - 
+2015,2,4.0,4376.0,11.883403265,0.0,False,drugs;foodandrecipes - drugs;foodandrecipes;shopping - 
+2016,2,4.0,4376.0,11.883403265,0.0,False,drugs;foodandrecipes - drugs;foodandrecipes;shopping - 
+2017,1,4.0,4453.0,11.36574364,0.0,False,drugs;foodandrecipes - drugs;foodandrecipes;shopping - 
+2018,2,4.0,3392.5,12.107325475,0.0,False,drugs;foodandrecipes - drugs;foodandrecipes;shopping - 
+2019,3,2.6666666666666665,3106.0,12.822399606666666,5.229494383333333,False,drugs;foodandrecipes - drugs;foodandrecipes;shopping - 

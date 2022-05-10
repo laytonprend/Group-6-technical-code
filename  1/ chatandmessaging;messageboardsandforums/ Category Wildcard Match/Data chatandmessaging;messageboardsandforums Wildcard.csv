@@ -1,0 +1,12 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2001,2,3.5,5422.0,0.0,0.0,False,chatandmessaging;messageboardsandforums - 
+2002,2,14.0,9181.5,0.0,0.0,False,chatandmessaging;messageboardsandforums - 
+2003,2,14.0,9279.5,0.0,0.0,False,chatandmessaging;messageboardsandforums - 
+2005,1,14.0,9726.0,0.0,0.0,False,chatandmessaging;messageboardsandforums - 
+2006,1,14.0,9726.0,0.0,0.0,False,chatandmessaging;messageboardsandforums - 
+2011,1,15.0,9484.0,9.712075224,13.40145869,False,chatandmessaging;messageboardsandforums - 
+2012,2,15.0,9482.5,9.712075225,13.401458685,False,chatandmessaging;messageboardsandforums - 
+2013,2,12.0,8635.5,11.58847919,14.268952800000003,False,chatandmessaging;messageboardsandforums - 
+2014,1,12.0,8648.0,13.52450665,15.5140388,False,chatandmessaging;messageboardsandforums - 
+2016,1,10.0,9728.0,12.883806800000002,15.24766489,False,chatandmessaging;messageboardsandforums - 
+2018,1,0.0,13187.0,14.05962121,0.0,False,chatandmessaging;messageboardsandforums - 

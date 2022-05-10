@@ -1,0 +1,5 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2006,1,10.0,11326.0,16.00311987,16.96605863,True,newsandmedia;searchenginesandportals
+2012,1,7.0,12384.0,12.95965288,15.02112968,True,newsandmedia;searchenginesandportals
+2013,1,7.0,12322.0,13.84130297,15.06678064,True,newsandmedia;searchenginesandportals
+2014,2,7.0,12065.5,13.523999635,14.756478755,True,newsandmedia;searchenginesandportals

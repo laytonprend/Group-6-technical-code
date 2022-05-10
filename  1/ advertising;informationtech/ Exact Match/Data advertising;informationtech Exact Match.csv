@@ -1,0 +1,10 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2003,2,0.0,2630.0,8.72294288,11.886519145,True,advertising;informationtech
+2011,1,0.0,10207.0,10.68538071,13.07868587,True,advertising;informationtech
+2012,2,0.0,10207.0,10.685380715,13.07868587,True,advertising;informationtech
+2013,2,0.0,10162.0,10.63432825,13.07868587,True,advertising;informationtech
+2014,2,0.0,10168.0,10.86019943,13.12372645,True,advertising;informationtech
+2015,2,0.0,10109.0,11.728668775,14.88311306,True,advertising;informationtech
+2016,2,0.0,10011.0,11.53640351,14.790194505,True,advertising;informationtech
+2018,1,11.0,17705.0,14.41067015,15.81774264,True,advertising;informationtech
+2019,1,11.0,17703.0,14.43091503,15.90318901,True,advertising;informationtech

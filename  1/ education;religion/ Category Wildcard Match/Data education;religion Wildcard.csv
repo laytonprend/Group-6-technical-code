@@ -1,0 +1,22 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+1999,1,0.0,5299.0,14.73675892,16.0302975,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2000,14,3.5,5266.0,8.9113433,5.247203500714286,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2001,22,2.3636363636363638,5432.136363636364,10.128225422727274,5.840698322727272,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2002,30,3.7333333333333334,5638.333333333333,10.777376166,6.97644982,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2003,38,3.5789473684210527,5158.421052631579,11.146563563421052,7.070496912894736,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2004,44,2.1363636363636362,5662.295454545455,11.410461703181818,7.86700851090909,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2005,51,2.8627450980392157,5933.490196078431,11.220550480980393,8.187469173529413,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2006,68,2.7058823529411766,6185.279411764706,11.375108067058823,8.938227918382355,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2007,63,4.222222222222222,8074.31746031746,12.320411846507938,11.241699210476188,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2008,64,3.875,7399.125,12.0147976921875,11.15090763046875,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2009,64,3.390625,7188.328125,11.8798915515625,10.27041130625,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2010,86,2.941860465116279,6929.279069767442,12.140445016279068,10.131426941860466,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2011,113,2.9292035398230087,6379.982300884956,12.003653246902655,8.954816959292037,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2012,124,3.846774193548387,7384.669354838709,11.995462377419354,9.728292633870968,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2013,152,3.6973684210526314,7497.769736842105,12.05677888618421,10.137593324342106,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2014,166,3.4698795180722892,8151.987951807229,12.332495629698796,10.390378220481928,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2015,184,3.385869565217391,8310.989130434782,12.405464423641305,10.203019069021739,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2016,195,3.605128205128205,8676.74358974359,12.562655355435897,10.072081874871795,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2017,180,3.8666666666666667,9049.555555555555,12.674472983555557,10.223467516055557,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2018,157,4.127388535031847,11681.095541401273,12.839269989808917,11.322824475796178,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 
+2019,178,4.589887640449438,11971.668539325843,12.977414228089886,11.21083959213483,False,blogsandpersonal;education;religion - business;education;religion - education;religion - 

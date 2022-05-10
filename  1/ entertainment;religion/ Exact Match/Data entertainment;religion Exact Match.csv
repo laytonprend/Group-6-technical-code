@@ -1,0 +1,10 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2010,1,0.0,5341.0,16.14120901,18.56409048,True,entertainment;religion
+2011,2,0.0,5865.0,16.56924818,19.0156027,True,entertainment;religion
+2012,2,3.0,9265.5,15.158730695,16.995452755,True,entertainment;religion
+2013,2,6.0,12650.0,13.748213215,14.97530281,True,entertainment;religion
+2014,2,6.0,12634.0,13.748213215,14.97530281,True,entertainment;religion
+2015,4,5.0,10877.0,12.78234786,14.1883807475,True,entertainment;religion
+2016,4,5.0,10877.0,12.78234786,14.1883807475,True,entertainment;religion
+2017,4,3.5,8946.5,12.5419229625,14.2564712675,True,entertainment;religion
+2019,1,6.0,16109.0,13.31869987,14.55459255,True,entertainment;religion

@@ -1,0 +1,21 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2000,2,0.0,2239.5,13.85295238,,True,business;searchenginesandportals
+2001,2,0.0,2235.0,13.85295238,,True,business;searchenginesandportals
+2002,2,0.0,2235.0,13.85295238,,True,business;searchenginesandportals
+2003,2,0.0,2235.0,13.85295238,,True,business;searchenginesandportals
+2004,2,0.0,2235.0,13.85295238,,True,business;searchenginesandportals
+2005,2,0.0,2235.0,13.85295238,,True,business;searchenginesandportals
+2006,3,0.0,7561.333333333333,14.259993223333334,5.3992841799999995,True,business;searchenginesandportals
+2007,2,0.0,2235.0,13.85295238,,True,business;searchenginesandportals
+2008,2,0.0,2235.0,13.85295238,,True,business;searchenginesandportals
+2009,2,0.0,2235.0,13.85295238,,True,business;searchenginesandportals
+2010,3,0.0,1425.6666666666667,4.6176507933333335,,True,business;searchenginesandportals
+2011,6,3.3333333333333335,2861.3333333333335,9.355801896666668,9.124753735,True,business;searchenginesandportals
+2012,4,6.0,6849.25,10.836155095,13.049105335,True,business;searchenginesandportals
+2013,4,6.0,5759.0,10.032231325,12.24110419,True,business;searchenginesandportals
+2014,4,6.0,6454.25,10.326684585,12.59424181,True,business;searchenginesandportals
+2015,3,6.333333333333333,6638.666666666667,10.348211186666667,12.453318543333333,True,business;searchenginesandportals
+2016,4,4.75,11096.25,12.764497585,14.701464665,True,business;searchenginesandportals
+2017,9,2.3333333333333335,13202.777777777777,12.850524133333334,12.664176266666667,True,business;searchenginesandportals
+2018,4,3.5,9560.75,11.1100853475,13.457364295,True,business;searchenginesandportals
+2019,5,1.4,8073.0,9.823950038,12.878535236,True,business;searchenginesandportals

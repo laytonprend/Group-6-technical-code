@@ -1,0 +1,11 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2010,2,0.0,2874.0,12.63763824,0.0,False,education;entertainment;travel - 
+2011,3,0.0,2820.0,11.274327386666668,0.0,False,education;entertainment;travel - 
+2012,4,0.0,2833.5,11.615155099999999,0.0,False,education;entertainment;travel - 
+2013,5,1.2,3610.2,11.804003794,2.8917960099999998,False,education;entertainment;travel - 
+2014,5,2.4,4660.4,11.845416934000001,5.916077802,False,education;entertainment;travel - 
+2015,5,1.2,3751.0,11.83253433,2.9580389,False,education;entertainment;travel - 
+2016,5,0.8,3103.2,11.74283599,0.0,False,education;entertainment;travel - 
+2017,3,2.6666666666666665,3887.6666666666665,11.035578953333333,0.0,False,education;entertainment;travel - 
+2018,2,4.0,4435.0,11.257032449999999,0.0,False,education;entertainment;travel - 
+2019,4,1.5,4217.25,10.8082292775,6.49939704,False,education;entertainment;travel - 

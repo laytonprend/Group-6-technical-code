@@ -1,0 +1,12 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2008,1,0.0,6349.0,12.65243902,14.45898005,False,adult;mediasharing;socialnetworking - business;mediasharing;socialnetworking - mediasharing;socialnetworking - 
+2009,1,0.0,732.0,0.0,0.0,False,adult;mediasharing;socialnetworking - business;mediasharing;socialnetworking - mediasharing;socialnetworking - 
+2010,2,0.0,732.0,0.0,0.0,False,adult;mediasharing;socialnetworking - business;mediasharing;socialnetworking - mediasharing;socialnetworking - 
+2012,8,5.25,12913.375,10.62155452625,12.00289594,False,adult;mediasharing;socialnetworking - business;mediasharing;socialnetworking - mediasharing;socialnetworking - 
+2013,6,4.333333333333333,11110.666666666666,7.315005326666667,9.413358486666667,False,adult;mediasharing;socialnetworking - business;mediasharing;socialnetworking - mediasharing;socialnetworking - 
+2014,11,4.181818181818182,9253.272727272728,9.057773070909091,8.846240634545454,False,adult;mediasharing;socialnetworking - business;mediasharing;socialnetworking - mediasharing;socialnetworking - 
+2015,9,3.5555555555555554,9585.222222222223,9.306588457777778,9.655073617777777,False,adult;mediasharing;socialnetworking - business;mediasharing;socialnetworking - mediasharing;socialnetworking - 
+2016,6,5.666666666666667,12393.833333333334,10.029797273333333,12.199739741666667,False,adult;mediasharing;socialnetworking - business;mediasharing;socialnetworking - mediasharing;socialnetworking - 
+2017,3,5.333333333333333,9213.666666666666,8.12488251,10.08445341,False,adult;mediasharing;socialnetworking - business;mediasharing;socialnetworking - mediasharing;socialnetworking - 
+2018,3,9.333333333333334,23467.333333333332,11.600524746666666,13.689312346666666,False,adult;mediasharing;socialnetworking - business;mediasharing;socialnetworking - mediasharing;socialnetworking - 
+2019,5,15.2,15381.0,13.339667262,14.477490544,False,adult;mediasharing;socialnetworking - business;mediasharing;socialnetworking - mediasharing;socialnetworking - 

@@ -1,0 +1,20 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2000,1,0.0,3593.0,10.90383004,13.5591,False,business;drugs - business;drugs;education - business;drugs;shopping - 
+2001,2,0.0,3230.0,11.20971917,0.0,False,business;drugs - business;drugs;education - business;drugs;shopping - 
+2002,2,0.0,3222.0,11.463215199999999,0.0,False,business;drugs - business;drugs;education - business;drugs;shopping - 
+2003,1,0.0,3222.0,11.463215199999999,0.0,False,business;drugs - business;drugs;education - business;drugs;shopping - 
+2004,1,14.0,9364.0,0.0,0.0,False,business;drugs - business;drugs;education - business;drugs;shopping - 
+2005,1,0.0,3163.0,11.90566114,0.0,False,business;drugs - business;drugs;education - business;drugs;shopping - 
+2006,1,0.0,3020.0,13.05819706,0.0,False,business;drugs - business;drugs;education - business;drugs;shopping - 
+2007,1,2.0,3906.0,11.49135294,14.83674596,False,business;drugs - business;drugs;education - business;drugs;shopping - 
+2009,3,2.0,4002.3333333333335,12.137890403333335,9.687159763333334,False,business;drugs - business;drugs;education - business;drugs;shopping - 
+2010,8,3.25,9356.75,14.6027651325,12.1262072125,False,business;drugs - business;drugs;education - business;drugs;shopping - 
+2011,3,3.3333333333333335,11408.333333333334,14.840319256666668,10.84433548,False,business;drugs - business;drugs;education - business;drugs;shopping - 
+2012,6,3.3333333333333335,12382.0,15.210892375,16.41538395,False,business;drugs - business;drugs;education - business;drugs;shopping - 
+2013,7,3.2857142857142856,11311.57142857143,14.822782485714287,13.679920022857143,False,business;drugs - business;drugs;education - business;drugs;shopping - 
+2014,10,4.1,11571.0,14.463279640000001,11.229419102,False,business;drugs - business;drugs;education - business;drugs;shopping - 
+2015,15,4.266666666666667,12399.933333333332,13.705347419333332,13.31663706,False,business;drugs - business;drugs;education - business;drugs;shopping - 
+2016,24,3.4583333333333335,10751.25,13.045750770833335,13.202039675,False,business;drugs - business;drugs;education - business;drugs;shopping - 
+2017,15,4.266666666666667,11505.4,13.255003907333332,14.104062632666666,False,business;drugs - business;drugs;education - business;drugs;shopping - 
+2018,25,2.92,13325.36,13.050609739200002,12.757535887999998,False,business;drugs - business;drugs;education - business;drugs;shopping - 
+2019,30,3.466666666666667,12486.0,13.362320253333333,12.278871373333335,False,business;drugs - business;drugs;education - business;drugs;shopping - 

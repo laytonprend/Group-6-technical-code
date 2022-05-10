@@ -1,0 +1,17 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2004,1,0.0,3926.0,0.0,0.0,False,deceptive - deceptive;entertainment;games - deceptive;foodandrecipes - deceptive;informationtech - 
+2005,3,0.6666666666666666,6962.333333333333,4.299882823333333,5.127191916666667,False,deceptive - deceptive;entertainment;games - deceptive;foodandrecipes - deceptive;informationtech - 
+2006,4,3.75,6751.25,7.237310895,8.1116508675,False,deceptive - deceptive;entertainment;games - deceptive;foodandrecipes - deceptive;informationtech - 
+2007,7,5.0,7051.428571428572,9.996114665714286,9.270458137142857,False,deceptive - deceptive;entertainment;games - deceptive;foodandrecipes - deceptive;informationtech - 
+2008,10,1.8,4952.6,9.528983024,4.319150928000001,False,deceptive - deceptive;entertainment;games - deceptive;foodandrecipes - deceptive;informationtech - 
+2009,11,2.1818181818181817,3681.4545454545455,9.900837734545455,1.1939276872727271,False,deceptive - deceptive;entertainment;games - deceptive;foodandrecipes - deceptive;informationtech - 
+2010,13,1.8461538461538463,6635.307692307692,12.37046600769231,7.374920236923078,False,deceptive - deceptive;entertainment;games - deceptive;foodandrecipes - deceptive;informationtech - 
+2011,14,0.7142857142857143,5144.571428571428,13.166378427857142,6.6228481071428575,False,deceptive - deceptive;entertainment;games - deceptive;foodandrecipes - deceptive;informationtech - 
+2012,16,0.625,4691.625,12.444306261875,5.7740464056250005,False,deceptive - deceptive;entertainment;games - deceptive;foodandrecipes - deceptive;informationtech - 
+2013,17,0.5882352941176471,4574.64705882353,12.108482664117648,5.64885866,False,deceptive - deceptive;entertainment;games - deceptive;foodandrecipes - deceptive;informationtech - 
+2014,14,1.1428571428571428,5271.5,11.577471156428572,6.7511331750000005,False,deceptive - deceptive;entertainment;games - deceptive;foodandrecipes - deceptive;informationtech - 
+2015,20,1.3,4250.95,11.3364476365,4.395113458999999,False,deceptive - deceptive;entertainment;games - deceptive;foodandrecipes - deceptive;informationtech - 
+2016,12,2.1666666666666665,5045.0,12.556288944166667,3.7501847099999996,False,deceptive - deceptive;entertainment;games - deceptive;foodandrecipes - deceptive;informationtech - 
+2017,11,1.1818181818181819,4694.181818181818,13.486280484545455,2.7723027072727273,False,deceptive - deceptive;entertainment;games - deceptive;foodandrecipes - deceptive;informationtech - 
+2018,6,1.3333333333333333,6044.0,14.235474183333332,2.6147471916666665,False,deceptive - deceptive;entertainment;games - deceptive;foodandrecipes - deceptive;informationtech - 
+2019,3,7.666666666666667,19541.666666666668,14.294997926666667,15.644948573333332,False,deceptive - deceptive;entertainment;games - deceptive;foodandrecipes - deceptive;informationtech - 

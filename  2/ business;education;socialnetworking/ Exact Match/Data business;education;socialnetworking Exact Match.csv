@@ -1,0 +1,7 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2007,1,0.0,1159.0,10.72688431,,True,business;education;socialnetworking
+2008,1,3.0,29304.0,15.14425549,15.6451,True,business;education;socialnetworking
+2016,2,9.5,18156.0,13.241867725,14.068063275,True,business;education;socialnetworking
+2017,1,9.0,15921.0,12.56282081,14.06817629,True,business;education;socialnetworking
+2018,1,9.0,15921.0,12.56282081,14.06817629,True,business;education;socialnetworking
+2019,2,6.5,23147.0,12.862365995,13.734817485,True,business;education;socialnetworking

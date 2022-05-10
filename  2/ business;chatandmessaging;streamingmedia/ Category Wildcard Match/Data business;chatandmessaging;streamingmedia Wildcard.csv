@@ -1,0 +1,12 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2009,1,0.0,991.0,15.29252137,0.0,False,business;chatandmessaging;streamingmedia - 
+2010,2,6.0,5887.0,12.641976150000001,14.6021,False,business;chatandmessaging;streamingmedia - 
+2011,3,2.0,3747.0,12.894382610000001,4.867366666666666,False,business;chatandmessaging;streamingmedia - 
+2012,2,0.0,2677.0,13.02058584,0.0,False,business;chatandmessaging;streamingmedia - 
+2013,3,2.0,3747.0,12.894382610000001,4.867366666666666,False,business;chatandmessaging;streamingmedia - 
+2014,2,0.0,2670.0,13.02058584,0.0,False,business;chatandmessaging;streamingmedia - 
+2015,2,0.0,3409.0,13.84096774,0.0,False,business;chatandmessaging;streamingmedia - 
+2016,5,4.0,8803.6,13.275981826,8.883389678,False,business;chatandmessaging;streamingmedia - 
+2017,5,7.2,8656.8,12.214811840000001,11.717700266,False,business;chatandmessaging;streamingmedia - 
+2018,5,11.0,19687.6,14.513638444,15.20269789,False,business;chatandmessaging;streamingmedia - 
+2019,2,11.0,19676.0,14.51611522,15.20269789,False,business;chatandmessaging;streamingmedia - 

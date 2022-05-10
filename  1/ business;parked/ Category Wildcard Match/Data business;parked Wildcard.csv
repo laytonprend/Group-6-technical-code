@@ -1,0 +1,9 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2008,3,0.0,10436.666666666666,13.933797483333334,10.798568359999999,False,business;parked - 
+2009,2,0.0,8418.5,13.312644625,8.181643185,False,business;parked - 
+2010,2,0.0,15081.0,14.813442565,16.363286375,False,business;parked - 
+2011,1,0.0,18507.0,13.95230894,15.6451,False,business;parked - 
+2015,2,4.0,3897.0,11.544566885,0.0,False,business;parked - 
+2016,2,4.0,4214.5,11.395502485,6.805560135,False,business;parked - 
+2017,2,4.0,4214.5,11.395502485,6.805560135,False,business;parked - 
+2019,2,4.0,3897.0,11.544566885,0.0,False,business;parked - 

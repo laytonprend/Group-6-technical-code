@@ -1,0 +1,10 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+2005,1,0.0,6275.0,13.77880748,16.6479251,False,business;informationtech;travel - education;informationtech;travel - informationtech;travel - 
+2011,1,0.0,2409.0,11.70507246,0.0,False,business;informationtech;travel - education;informationtech;travel - informationtech;travel - 
+2012,1,0.0,2097.0,13.94094123,0.0,False,business;informationtech;travel - education;informationtech;travel - informationtech;travel - 
+2014,1,6.0,7503.0,13.03184708,15.24766489,False,business;informationtech;travel - education;informationtech;travel - informationtech;travel - 
+2015,3,6.0,6320.0,13.007937296666666,14.657590823333331,False,business;informationtech;travel - education;informationtech;travel - informationtech;travel - 
+2016,2,6.0,5729.0,12.995982405,14.36255379,False,business;informationtech;travel - education;informationtech;travel - informationtech;travel - 
+2017,4,6.0,6701.5,13.019881705,14.8275097225,False,business;informationtech;travel - education;informationtech;travel - informationtech;travel - 
+2018,2,3.0,14891.0,14.151301195,15.60508846,False,business;informationtech;travel - education;informationtech;travel - informationtech;travel - 
+2019,1,6.0,5729.0,12.9959824,14.36255379,False,business;informationtech;travel - education;informationtech;travel - informationtech;travel - 

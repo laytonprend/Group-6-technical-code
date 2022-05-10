@@ -1,0 +1,23 @@
+year,GroupedRows,ChildCountMean,lengthMean,flesch_kincaid_Mean,smog_Mean,Exact Match?,CategoriesSearched
+1998,1,0.0,1086.0,8.861531887,0.0,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+1999,2,0.0,1085.0,8.861531885,0.0,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2000,8,8.125,5833.125,11.76060393125,7.3657422325,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2001,9,2.3333333333333335,5260.333333333333,11.684202631111113,6.316964092222222,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2002,9,2.7777777777777777,5964.111111111111,11.680209038000001,7.884385397777779,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2003,15,2.466666666666667,6060.866666666667,11.682241522666667,6.471221030666666,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2004,16,3.625,6965.9375,11.685329129374999,9.366986931249999,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2005,20,2.05,5479.55,11.3636368855,8.061161257,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2006,22,3.227272727272727,7371.818181818182,11.749816976818183,9.703205291363636,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2007,32,4.09375,8528.65625,12.422806560625,11.887835584375,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2008,41,3.951219512195122,7364.804878048781,12.315890636097562,9.032386044390245,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2009,44,4.363636363636363,7448.363636363636,12.676564003636361,10.222427066136362,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2010,49,4.653061224489796,8530.163265306122,12.501976525306123,10.70651178591837,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2011,60,5.666666666666667,8920.216666666667,12.1741663155,11.615743960166666,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2012,72,8.069444444444445,9151.416666666666,11.93791061972222,11.434907448750002,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2013,74,7.175675675675675,9406.432432432432,12.538616345,11.799575981756758,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2014,80,4.75,8317.7625,12.43883922425,10.885728774124999,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2015,83,5.843373493975903,9168.674698795181,12.722109675542168,11.523056439156626,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2016,77,6.12987012987013,9988.77922077922,12.396239901818182,11.912620761948052,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2017,63,7.079365079365079,11642.968253968254,12.311010272222223,12.693896135714287,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2018,43,8.627906976744185,15030.860465116279,13.225082605116281,14.119032165813953,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
+2019,41,6.512195121951219,14946.560975609756,12.910130493414632,13.287158938292682,False,business;shopping;sports - education;shopping;sports - entertainment;shopping;sports - games;shopping;sports - shopping;sports - 
